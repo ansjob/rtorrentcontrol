@@ -17,6 +17,7 @@ define([
 		render: function(id) {
 			var output = Mustache.render(pageTemplate, {id: id});
 			$(this.el).html(output);
+			console.log(app.torrents);
 		}
 	});
 	

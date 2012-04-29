@@ -4,6 +4,7 @@ define([
 	'underscore',
 	], function($, Backbone, _) {
 		var TorrentModel = Backbone.Model.extend({
-			url: 'api/torrents'
 		});
+		
+		return TorrentModel;
 	});
