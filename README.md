@@ -1,6 +1,7 @@
 # rTorrent Web Control
 
 rTorrent Web Control is an HTML5-based web application to control your rtorrent instance in real time.
+<img src = "https://secure.travis-ci.org/ansjob/rtorrentcontrol.png" />
 
 ## Purpose
 
