@@ -73,16 +73,23 @@
 				</executions>
 				<configuration>
 					<specRunnerTemplate>REQUIRE_JS</specRunnerTemplate>
-					<jsSrcDir>src/main/webapp/scripts</jsSrcDir>
-					<jsTestSrcDir>src/test/javascript/specs</jsTestSrcDir>
-					<scriptLoaderPath>lib/require.js</scriptLoaderPath>
+					<jasmineTargetDir>${project.build.directory}/jasmine</jasmineTargetDir>
 					<specIncludes>
 						<include>**/*.js</include>
 					</specIncludes>
+					<scriptLoaderPath>../scripts/lib/require.js</scriptLoaderPath>
+					<jsTestSrcDir>src/test/javascript</jsTestSrcDir>
+					<customRunnerConfiguration>
+						src/test/javascript/resources/config.txt
+					</customRunnerConfiguration>
+					<preloadSources>
+						<source>setup.js</source>
+					</preloadSources>
 				</configuration>
 			</plugin>
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.5</version>
 				<executions>
 					<execution>
 						<id>copy-js-files</id>
@@ -93,10 +100,6 @@
 						<configuration>
 							<outputDirectory>${project.build.directory}/jasmine</outputDirectory>
 							<resources>
-								<resource>
-									<directory>src/main/webapp/scripts</directory>
-									<filtering>false</filtering>
-								</resource>
 								<resource>
 									<directory>src/main/webapp</directory>
 									<filtering>false</filtering>

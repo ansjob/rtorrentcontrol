@@ -1,6 +1,6 @@
-require(['require_config']);
+require(['../scripts/require_config']);
 
-require(['namespace'], function(namespace) {
+require(['scripts/namespace'], function(namespace) {
 	describe('Namespace', function() {
 		
 		it('is defined', function() {
