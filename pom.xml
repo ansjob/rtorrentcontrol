@@ -1,6 +1,6 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>se.tjugohundratalet</groupId>
 	<artifactId>rtorrentcontrol</artifactId>
@@ -12,8 +12,9 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
+			<version>4.10</version>
 			<scope>test</scope>
+			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
@@ -41,6 +42,12 @@
 			<version>1.1.1</version>
 			<classifier>api</classifier>
 		</dependency>
+		<dependency>
+			<groupId>com.github.searls</groupId>
+			<artifactId>jasmine-maven-plugin</artifactId>
+			<version>1.1.0</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>rtorrentcontrol</finalName>
@@ -52,6 +59,56 @@
 				<configuration>
 					<scanIntervalSeconds>5</scanIntervalSeconds>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.github.searls</groupId>
+				<artifactId>jasmine-maven-plugin</artifactId>
+				<version>1.1.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>test</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<specRunnerTemplate>REQUIRE_JS</specRunnerTemplate>
+					<jsSrcDir>src/main/webapp/scripts</jsSrcDir>
+					<jsTestSrcDir>src/test/javascript/specs</jsTestSrcDir>
+					<scriptLoaderPath>lib/require.js</scriptLoaderPath>
+					<specIncludes>
+						<include>**/*.js</include>
+					</specIncludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-js-files</id>
+						<phase>generate-test-resources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/jasmine</outputDirectory>
+							<resources>
+								<resource>
+									<directory>src/main/webapp/scripts</directory>
+									<filtering>false</filtering>
+								</resource>
+								<resource>
+									<directory>src/main/webapp</directory>
+									<filtering>false</filtering>
+								</resource>
+								<resource>
+									<directory>src/test/javascript</directory>
+									<filtering>false</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
