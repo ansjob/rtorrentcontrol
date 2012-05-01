@@ -82,9 +82,6 @@
 					<customRunnerConfiguration>
 						src/test/javascript/resources/config.txt
 					</customRunnerConfiguration>
-					<preloadSources>
-						<source>setup.js</source>
-					</preloadSources>
 				</configuration>
 			</plugin>
 			<plugin>
