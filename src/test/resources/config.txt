@@ -1,0 +1,10 @@
+baseUrl: 'scripts/',
+paths : {
+	'namespace'	: 'namespace',
+	'jquery'	: 'lib/jquery-1.7.1.min',
+	'underscore': 'lib/underscore-min',
+	'backbone'	: 'lib/backbone-min',
+	'fakeajax'	: 'lib/jasmine-fake-ajax-0.3.4',
+	'order'		: 'lib/order',
+	'mock-ajax' : 'lib/mock-ajax',
+}

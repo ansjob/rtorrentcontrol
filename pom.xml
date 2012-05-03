@@ -42,12 +42,6 @@
 			<version>1.1.1</version>
 			<classifier>api</classifier>
 		</dependency>
-		<dependency>
-			<groupId>com.github.searls</groupId>
-			<artifactId>jasmine-maven-plugin</artifactId>
-			<version>1.1.0</version>
-			<scope>test</scope>
-		</dependency>
 	</dependencies>
 	<build>
 		<finalName>rtorrentcontrol</finalName>
@@ -72,43 +66,19 @@
 					</execution>
 				</executions>
 				<configuration>
+					<debug>true</debug>
 					<specRunnerTemplate>REQUIRE_JS</specRunnerTemplate>
-					<jasmineTargetDir>${project.build.directory}/jasmine</jasmineTargetDir>
-					<specIncludes>
-						<include>**/*.js</include>
-					</specIncludes>
-					<scriptLoaderPath>../scripts/lib/require.js</scriptLoaderPath>
-					<jsTestSrcDir>src/test/javascript</jsTestSrcDir>
-					<customRunnerConfiguration>
-						src/test/javascript/resources/config.txt
-					</customRunnerConfiguration>
+					<srcDirectoryName>.</srcDirectoryName>
+					<scriptLoaderPath>scripts/lib/require.js</scriptLoaderPath>
+					<jsSrcDir>${project.basedir}/src/main/webapp</jsSrcDir>
+					<jsTestSrcDir>${project.basedir}/src/test/webapp/</jsTestSrcDir>
+					<haltOnFailure>true</haltOnFailure>
+					<customRunnerConfiguration>${project.basedir}/src/test/resources/config.txt</customRunnerConfiguration>
+					<sourceIncludes>
+						<source>scripts/lib/underscore-min.js</source>
+						<source>**/*.js</source>
+					</sourceIncludes>
 				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.5</version>
-				<executions>
-					<execution>
-						<id>copy-js-files</id>
-						<phase>generate-test-resources</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${project.build.directory}/jasmine</outputDirectory>
-							<resources>
-								<resource>
-									<directory>src/main/webapp</directory>
-									<filtering>false</filtering>
-								</resource>
-								<resource>
-									<directory>src/test/javascript</directory>
-									<filtering>false</filtering>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>
