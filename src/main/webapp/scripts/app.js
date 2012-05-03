@@ -1,13 +1,13 @@
 define([
-	"router",
-	"collections/torrents",
-	], 
+	"scripts/router",
+	"scripts/collections/torrents",
+	],
 	function(Router, TorrentCollection){
 		var initialize = function(){
 			TorrentCollection.initialize();
 			Router.initialize();
 		};
-		return { 
+		return {
 			initialize	: initialize,
 		};
 	});

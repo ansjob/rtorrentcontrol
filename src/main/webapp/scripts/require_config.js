@@ -1,5 +1,6 @@
 define([], function() {
 	require.config({
+		baseUrl: '../',
 		paths : {
 			/* Common libs */
 			'jquery'		: 'scripts/lib/jquery-1.7.1.min',
@@ -15,6 +16,7 @@ define([], function() {
 			/* Testing libs */
 			'mock-ajax'		: 'scripts/lib/mock-ajax',
 			'fake-ajax'		: 'scripts/lib/jasmine-fake-ajax-0.3.4',
+			
 		}
 	});
 });

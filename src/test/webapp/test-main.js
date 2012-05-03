@@ -1,18 +1,20 @@
-/* Set so that we can load resources */
-require.config({
-	baseUrl : "../../main/webapp/",
-});
 
+var MAIN_SRC_BASE = "../../main/webapp/";
 var TEST_BASE = "../../test/webapp/";
 var SPEC_PREFIX = TEST_BASE + "spec/";
+
 /* Load application config, and tests */
-define(['scripts/lib/underscore-min','scripts/require_config'], function() {
+define([MAIN_SRC_BASE + 'scripts/require_config'], function() {
+	/* Override default baseUrl */
+	require.config({
+		baseUrl : MAIN_SRC_BASE,
+	});
 	require([ 
 	     'order!' + TEST_BASE + "lib/jasmine-1.2.0.rc3/jasmine.js",
          'order!' + TEST_BASE + "lib/jasmine-1.2.0.rc3/jasmine-html.js",
          'order!' + SPEC_PREFIX + "helloTest",
-         //'order!' + SPEC_PREFIX + "helloNetwork",
-         'order!' + SPEC_PREFIX + "helloFakeAjax"
+         'order!' + SPEC_PREFIX + "helloFakeAjax",
+         'order!' + SPEC_PREFIX + "routerSpec"
          ], function() {
 		/* Then run tests */
 		var jasmineEnv = jasmine.getEnv();

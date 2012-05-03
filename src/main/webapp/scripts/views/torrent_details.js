@@ -1,5 +1,5 @@
 define([
-	'namespace',
+	'scripts/namespace',
 	'jquery',
 	'backbone',
 	'underscore',
@@ -11,13 +11,12 @@ define([
 	
 	var app = namespace.app;
 	
-	var TorrentDetails= Backbone.View.extend({
+	var TorrentDetails = Backbone.View.extend({
 		el: "#content",
-		
 		render: function(id) {
+			console.log(id);
 			var output = Mustache.render(pageTemplate, {id: id});
 			$(this.el).html(output);
-			console.log(app.torrents);
 		}
 	});
 	

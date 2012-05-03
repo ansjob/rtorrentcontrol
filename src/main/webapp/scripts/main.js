@@ -1,7 +1,10 @@
 require(['require_config'], function() {
-	require( ['app' ,'jquery'],
+	require( ['scripts/app' ,'jquery'],
 		function(App, $) {
 			require(['bootstrap'], function() {
+				require.config({
+					baseUrl: '..'
+				});
 				App.initialize();
 			});
 		});

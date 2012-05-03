@@ -4,12 +4,11 @@
  */
 package se.tjugohundratalet.rtorrentcontrol.services;
 
-import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+
 import org.apache.log4j.Logger;
-import se.tjugohundratalet.rtorrentcontrol.models.SearchResult;
 
 /**
  * @author ansjob

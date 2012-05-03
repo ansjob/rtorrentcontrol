@@ -5,21 +5,21 @@ define([
 	'underscore',
 	'mustache',
 	//Templates:
-	'text!templates/torrents_list.html'
+	'text!templates/settings.html'
 	],function(namespace, $, Backbone, _, Mustache,
 		pageTemplate) {
 	
 	var app = namespace.app;
 	
-	var TorrentsList= Backbone.View.extend({
+	var SettingsView = Backbone.View.extend({
 		el: "#content",
-		
-		render: function() {
-			var output = Mustache.render(pageTemplate, {});
+		render: function(id) {
+			console.log(id);
+			var output = Mustache.render(pageTemplate, {id: id});
 			$(this.el).html(output);
 		}
 	});
 	
-	return new TorrentsList();
+	return new SettingsView();
 	
 	});
