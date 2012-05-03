@@ -54,6 +54,29 @@
 					<scanIntervalSeconds>5</scanIntervalSeconds>
 				</configuration>
 			</plugin>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<id>jasmine-testing</id>
+						<phase>test</phase>
+						<configuration>
+							<tasks>
+								<echo>Running Jasmine Test Suite</echo>
+								<exec dir="src/test/webapp" executable="phantomjs"
+									  resolveexecutable="true" failonerror="true">
+									<arg value="run-jasmine.js" />
+									<arg value="SpecRunner.html" />
+								</exec>
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 </project>
