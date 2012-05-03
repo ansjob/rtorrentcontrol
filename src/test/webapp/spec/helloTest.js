@@ -1,4 +1,4 @@
-define(['namespace'], function(namespace) {
+define(['scripts/namespace'], function(namespace) {
 	describe("namespace", function() {
 		it("is defined", function() {
 			expect(1).toBeDefined();

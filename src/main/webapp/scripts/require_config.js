@@ -1,16 +1,20 @@
 define([], function() {
 	require.config({
-		baseUrl: 'scripts',
 		paths : {
-			'jquery'		: 'lib/jquery-1.7.1.min',
-			'underscore'	: 'lib/underscore-min',
-			'transitions'	: 'plugin/bootstrap-transition',
-			'collapse'		: 'plugin/bootstrap-collapse',
-			'backbone'		: 'lib/backbone-min',
-			'underscore'	: 'lib/underscore-min',
-			'bootstrap'		: 'lib/bootstrap.min',
-			'text'			: 'lib/text',
-			'mustache'		: 'lib/requirejs.mustache'
+			/* Common libs */
+			'jquery'		: 'scripts/lib/jquery-1.7.1.min',
+			'order'			: 'scripts/lib/order',
+			'underscore'	: 'scripts/lib/underscore-min',
+			'transitions'	: 'scripts/plugin/bootstrap-transition',
+			'collapse'		: 'scripts/plugin/bootstrap-collapse',
+			'backbone'		: 'scripts/lib/backbone-min',
+			'underscore'	: 'scripts/lib/underscore-min',
+			'bootstrap'		: 'scripts/lib/bootstrap.min',
+			'text'			: 'scripts/lib/text',
+			'mustache'		: 'scripts/lib/requirejs.mustache',
+			/* Testing libs */
+			'mock-ajax'		: 'scripts/lib/mock-ajax',
+			'fake-ajax'		: 'scripts/lib/jasmine-fake-ajax-0.3.4',
 		}
 	});
 });

@@ -1,11 +1,11 @@
-define([ 'mock-ajax' ], function() {
+define([ 'order!jquery', 'order!mock-ajax' ], function() {
 	TestResponses = {
 			success : {
 				status: 200,
 				responseText: "Hello world"
 			}
 	}
-	describe("Fake Ajax", function() {
+	describe("Mock Ajax", function() {
 		var onSuccess, onFailure;
 		var request;
 		beforeEach(function() {
