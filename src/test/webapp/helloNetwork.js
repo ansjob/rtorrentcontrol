@@ -1,33 +1,43 @@
-define([ 'order!underscore', 'order!jquery', 'order!fakeajax' ],
-		function(_, $) {
+define([ 'mock-ajax' ], function() {
+	TestResponses = {
+			success : {
+				status: 200,
+				responseText: "Hello world"
+			}
+	}
+	describe("Fake Ajax", function() {
+		var onSuccess, onFailure;
+		var request;
+		beforeEach(function() {
+			jasmine.Ajax.useMock();
 
-			describe("Fake Ajax", function() {
+			onSuccess = jasmine.createSpy("onSuccess");
+			onFailure = jasmine.createSpy("onFailure");
 
-				it("is included", function() {
-					expect(registerFakeAjax).toBeDefined();
-					expect(registerFakeAjax).not.toEqual(null);
-				});
-
-				it("has access to underscore", function() {
-					expect(_).toBeDefined();
-					expect(_).not.toEqual(null);
-				});
-				var message;
-				it("does hello world", function() {
-					describe('simple example', function() {
-						it('just works', function() {
-							message = 'Hello '
-							registerFakeAjax({
-								url : '/simple',
-								successData : 'World!'
-							})
-							$.get('/simple', function(data) {
-								message += data
-							})
-							expect(message).toEqual('Hellö Wörld!')
-						})
-					});
-					expect(message).toEqual('Hello World!')
-				});
+			$.ajax("test/test.html", {
+				success : onSuccess
 			});
+
+			request = mostRecentAjaxRequest();
+		})
+
+		it("is included", function() {
+			expect(jasmine.Ajax).toBeDefined();
+			expect(jasmine.Ajax).not.toEqual(null);
 		});
+		
+		it("calls the url", function() {
+			expect(request.url).toEqual("test/test.html");
+		})
+
+		describe("onSuccess", function() {
+			beforeEach(function() {
+				request.response(TestResponses.success);
+			});
+			
+			it("should be called", function() {
+				expect(onSuccess).toHaveBeenCalled();
+			})
+		});
+	});
+});
