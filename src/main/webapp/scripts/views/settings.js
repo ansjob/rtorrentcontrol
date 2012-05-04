@@ -14,12 +14,9 @@ define([
 	var SettingsView = Backbone.View.extend({
 		el: "#content",
 		render: function(id) {
-			console.log(id);
 			var output = Mustache.render(pageTemplate, {id: id});
 			$(this.el).html(output);
 		}
 	});
-	
 	return new SettingsView();
-	
 	});

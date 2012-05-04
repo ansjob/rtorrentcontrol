@@ -1,7 +1,7 @@
 require(['require_config'], function() {
 	require( ['scripts/app' ,'jquery'],
 		function(App, $) {
-			require(['bootstrap'], function() {
+			require(['order!bootstrap', 'order!bootstrap-collapse'], function() {
 				require.config({
 					baseUrl: '..'
 				});

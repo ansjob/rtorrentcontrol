@@ -16,7 +16,7 @@ define([
 		var initialize = function() {
 			app.torrents = new TorrentsCollection();
 			app.torrents.fetch();
-		}
+		};
 		
 		return {initialize: initialize};
 	});

@@ -1,5 +1,6 @@
 package se.tjugohundratalet.rtorrentcontrol.services;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 

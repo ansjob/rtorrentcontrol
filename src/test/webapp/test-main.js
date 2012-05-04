@@ -12,10 +12,14 @@ define([MAIN_SRC_BASE + 'scripts/require_config'], function() {
 	require([ 
 	     'order!' + TEST_BASE + "lib/jasmine-1.2.0.rc3/jasmine.js",
          'order!' + TEST_BASE + "lib/jasmine-1.2.0.rc3/jasmine-html.js",
+         'order!' + TEST_BASE + "lib/jasmine-jquery-1.3.1.js",
          'order!' + SPEC_PREFIX + "helloTest",
          'order!' + SPEC_PREFIX + "helloFakeAjax",
-         'order!' + SPEC_PREFIX + "routerSpec"
+         'order!' + SPEC_PREFIX + "routerSpec",
+         'order!' + SPEC_PREFIX + "torrentDetailsSpec",
+         'order!' + SPEC_PREFIX + "torrentCollectionSpec"
          ], function() {
+		
 		/* Then run tests */
 		var jasmineEnv = jasmine.getEnv();
 		  jasmineEnv.updateInterval = 1000;
