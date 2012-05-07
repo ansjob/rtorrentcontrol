@@ -7,16 +7,26 @@ define([
 	], function ($, Backbone, _, namespace,
 		TorrentModel) {
 		var app = namespace.app;
-		
+		var INTERVAL = 1000;
+
+		var timeoutId;
+
 		var TorrentsCollection = Backbone.Collection.extend({
 			model: TorrentModel,
-			url: 'api/torrents'
+			url: 'api/torrents',
+
 		});
-		
+
+		var loopFunction = function() {
+			console.log("Fetching torrents...");
+			app.torrents.fetch();
+			timeoutId = setTimeout(loopFunction, INTERVAL);
+		}
+
 		var initialize = function() {
 			app.torrents = new TorrentsCollection();
-			app.torrents.fetch();
+			loopFunction();
 		};
-		
+
 		return {initialize: initialize};
 	});
