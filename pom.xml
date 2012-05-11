@@ -1,6 +1,6 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>se.tjugohundratalet</groupId>
 	<artifactId>rtorrentcontrol</artifactId>
@@ -47,6 +47,11 @@
 			<artifactId>jersey-json</artifactId>
 			<version>1.13-b01</version>
 		</dependency>
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2.1</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>rtorrentcontrol</finalName>
@@ -71,7 +76,7 @@
 							<target>
 								<echo>Running Jasmine Test Suite</echo>
 								<exec dir="src/test/webapp" executable="phantomjs"
-									resolveexecutable="true" failonerror="true">
+									  resolveexecutable="true" failonerror="true">
 									<arg value="run-jasmine.js" />
 									<arg value="SpecRunner.html" />
 								</exec>
@@ -91,7 +96,6 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
-
 		</plugins>
 	</build>
 </project>

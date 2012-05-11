@@ -1,6 +1,5 @@
 package se.tjugohundratalet.rtorrentcontrol.services;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,6 +11,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import se.tjugohundratalet.rtorrentcontrol.models.Torrent;
+import se.tjugohundratalet.rtorrentcontrol.models.logic.MockTorrentClient;
+import se.tjugohundratalet.rtorrentcontrol.models.logic.TorrentClient;
 
 /**
  * REST Web Service
@@ -20,12 +21,14 @@ import se.tjugohundratalet.rtorrentcontrol.models.Torrent;
 @Path("torrents")
 public class TorrentsResource {
 
+	TorrentClient client = new MockTorrentClient();
+
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Torrent> getTorrents() {
-		return new LinkedList<Torrent>();
+		return client.getAllTorrents();
 	}
-			
+
 	@POST
 	@PathParam("url/{url}")
 	public String downloadByUrl(@PathParam("url") URL url) {

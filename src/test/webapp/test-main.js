@@ -9,31 +9,34 @@ define([MAIN_SRC_BASE + 'scripts/require_config'], function() {
 	require.config({
 		baseUrl : MAIN_SRC_BASE,
 	});
+
 	require([
-	     'order!' + TEST_BASE + "lib/jasmine-1.2.0.rc3/jasmine.js",
-         'order!' + TEST_BASE + "lib/jasmine-1.2.0.rc3/jasmine-html.js",
-         'order!' + TEST_BASE + "lib/jasmine-jquery-1.3.1.js",
-         'order!' + SPEC_PREFIX + "helloTest",
-         'order!' + SPEC_PREFIX + "helloFakeAjax",
-         'order!' + SPEC_PREFIX + "routerSpec",
-         'order!' + SPEC_PREFIX + "torrentDetailsSpec",
-         'order!' + SPEC_PREFIX + "errorMessageSpec",
-         'order!' + SPEC_PREFIX + "torrentCollectionSpec"
-         ], function() {
+		'order!' + TEST_BASE + "lib/jasmine-1.2.0.rc3/jasmine.js",
+		'order!' + TEST_BASE + "lib/jasmine-1.2.0.rc3/jasmine-html.js",
+		'order!' + TEST_BASE + "lib/jasmine-jquery-1.3.1.js",
+		'order!' + TEST_BASE + "test-init",
+		'order!' + SPEC_PREFIX + "helloTest",
+		'order!' + SPEC_PREFIX + "helloFakeAjax",
+		'order!' + SPEC_PREFIX + "routerSpec",
+		'order!' + SPEC_PREFIX + "torrentDetailsSpec",
+		'order!' + SPEC_PREFIX + "errorMessageSpec",
+		'order!' + SPEC_PREFIX + "torrentCollectionSpec",
+		'order!' + SPEC_PREFIX + "torrentDetailsLogicSpec"
+		], function() {
 
-		/* Then run tests */
-		var jasmineEnv = jasmine.getEnv();
-		  jasmineEnv.updateInterval = 1000;
+			/* Then run tests */
+			var jasmineEnv = jasmine.getEnv();
+			jasmineEnv.updateInterval = 1000;
 
-		  var trivialReporter = new jasmine.TrivialReporter();
+			var trivialReporter = new jasmine.TrivialReporter();
 
-		  jasmineEnv.addReporter(trivialReporter);
+			jasmineEnv.addReporter(trivialReporter);
 
-		  jasmineEnv.specFilter = function(spec) {
-		    return trivialReporter.specFilter(spec);
-		  };
-		  jasmineEnv.execute();
-	});
+			jasmineEnv.specFilter = function(spec) {
+				return trivialReporter.specFilter(spec);
+			};
+			jasmineEnv.execute();
+		});
 
 
 });

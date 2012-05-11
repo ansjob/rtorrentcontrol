@@ -25,7 +25,6 @@ define([
 
 		var initialize = function() {
 			app.torrents = new TorrentsCollection();
-			loopFunction();
 		};
 
 		return {initialize: initialize};

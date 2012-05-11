@@ -2,12 +2,12 @@ define(
 	[
 	'scripts/router',
 	'scripts/views/torrents_list',
-	'scripts/views/torrent_details',
+	'scripts/models/torrent_details',
 	'scripts/views/settings',
 	'scripts/views/error',
 	'scripts/namespace'
 	],
-	function(Router, TorrentsList, TorrentDetailsView, SettingsView, ErrorView, namespace)
+	function(Router, TorrentsList, TorrentDetailsLogic, SettingsView, ErrorView, namespace)
 	{
 		beforeEach(function() {
 			try {
@@ -36,12 +36,12 @@ define(
 			});
 
 
-			it("calls TorrentDetails.render(23) when the url is #torrents/23", function() {
+			it("calls TorrentDetails.showTorrent(1234) when the url is #torrents/1234", function() {
 				namespace.app.router.navigate("", true);
-				spyOn(TorrentDetailsView, 'render');
-				namespace.app.router.navigate("torrents/23", true);
-				expect(TorrentDetailsView.render).toHaveBeenCalled();
-				expect(TorrentDetailsView.render).toHaveBeenCalledWith(23);
+				spyOn(TorrentDetailsLogic, 'showTorrent');
+				namespace.app.router.navigate("torrents/1234", true);
+				expect(TorrentDetailsLogic.showTorrent).toHaveBeenCalled();
+				expect(TorrentDetailsLogic.showTorrent).toHaveBeenCalledWith("1234");
 			});
 
 			it("calls SettingsView.render() when url is #settings", function() {

@@ -16,26 +16,24 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Torrent {
 	private String id;
 	private String name;
-	private long sizeInBytes;
-	private List<String> fileNames;
-	
+	private List<File> files;
+
 	/* For JSON serialization */
 	private Torrent() {
 	}
 
-	public Torrent(String id, String name, long sizeInBytes, List<String> fileNames) {
+	public Torrent(String id, String name, List<File> files) {
 		this.id = id;
 		this.name = name;
-		this.sizeInBytes = sizeInBytes;
-		this.fileNames = fileNames;
+		this.files = files;
 	}
 
-	public List<String> getFileNames() {
-		return fileNames;
+	public List<File> getFileNames() {
+		return files;
 	}
 
-	public void setFileNames(List<String> fileNames) {
-		this.fileNames = fileNames;
+	public void setFileNames(List<File> fileNames) {
+		this.files = fileNames;
 	}
 
 	public String getId() {
@@ -52,14 +50,6 @@ public class Torrent {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public long getSizeInBytes() {
-		return sizeInBytes;
-	}
-
-	public void setSizeInBytes(long sizeInBytes) {
-		this.sizeInBytes = sizeInBytes;
 	}
 
 	@Override
@@ -83,7 +73,7 @@ public class Torrent {
 		hash = 19 * hash + (this.id != null ? this.id.hashCode() : 0);
 		return hash;
 	}
-	
-	
-	
+
+
+
 }

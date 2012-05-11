@@ -15,25 +15,36 @@ define([
 		var app = namespace.app;
 
 		var TorrentDetails = Backbone.View.extend({
+
 			el: "#content",
 			render: function(id) {
 				var torrent = app.torrents.get(id);
 
-				var output;
 				if (torrent) {
-					output = Mustache.render(
+					this.template(torrent);
+				} else {
+					this.notFound();
+				}
+			},
+
+			notFound: function() {
+				ErrorView.render({
+					title: "404 Not found!",
+					message: "The torrent you appear to be looking for was not"+
+							" loaded in the client."
+				});
+			},
+
+			template: function(torrent) {
+				var output = Mustache.render(
 						pageTemplate, {
 							id: torrent.get('id'),
 							name: torrent.get('name')
 						});
 					$(this.el).html(output);
-				} else {
-					ErrorView.render({
-						message: "This torrent does not exist",
-						title: "404 Not found!"
-					});
-				}
 			}
+
+
 		});
 
 		return new TorrentDetails();

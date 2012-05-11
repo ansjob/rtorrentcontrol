@@ -4,17 +4,17 @@ define([
 	'jquery',
 	'backbone',
 	//Views
-	'scripts/views/torrent_details',
+	'scripts/models/torrent_details',
 	'scripts/views/torrents_list',
 	'scripts/views/settings',
 	'scripts/views/error'
 	], function(namespace, _, $, Backbone,
-		TorrentDetailsView,
+		TorrentDetailsLogic,
 		TorrentsList,
 		SettingsView,
 		ErrorView) {
 		var app = namespace.app;
-	
+
 		var rTorrentRouter = Backbone.Router.extend({
 			routes: {
 				'torrents/:id'	: 'viewTorrent',
@@ -25,24 +25,23 @@ define([
 				'settings/'		: 'settingsView',
 				'*actions'		: 'unknownRoute'
 			},
-		
+
 			viewTorrent: function(id) {
-				asInt = parseInt(id, 10);
-				TorrentDetailsView.render(asInt);
+				TorrentDetailsLogic.showTorrent(id);
 			},
-		
+
 			defaultView: function() {
 				this.navigate("torrents", true);
 			},
-		
+
 			torrentsList: function() {
 				TorrentsList.render();
 			},
-			
+
 			settingsView : function() {
 				SettingsView.render();
 			},
-			
+
 			unknownRoute: function(path) {
 				ErrorView.render({
 					title: "404 Error",
@@ -50,12 +49,12 @@ define([
 				});
 			}
 		});
-	
+
 		var initialize = function() {
 			app.router = new rTorrentRouter();
 			Backbone.history.start();
 		};
-	
+
 		return {
 			initialize: initialize
 		};
