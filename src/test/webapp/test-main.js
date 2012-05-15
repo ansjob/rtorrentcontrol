@@ -20,8 +20,7 @@ define([MAIN_SRC_BASE + 'scripts/require_config'], function() {
 		'order!' + SPEC_PREFIX + "routerSpec",
 		'order!' + SPEC_PREFIX + "torrentDetailsSpec",
 		'order!' + SPEC_PREFIX + "errorMessageSpec",
-		'order!' + SPEC_PREFIX + "torrentCollectionSpec",
-		'order!' + SPEC_PREFIX + "torrentDetailsLogicSpec"
+		'order!' + SPEC_PREFIX + "torrentCollectionSpec"
 		], function() {
 
 			/* Then run tests */

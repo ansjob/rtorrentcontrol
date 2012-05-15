@@ -4,13 +4,13 @@ define([
 	'jquery',
 	'backbone',
 	//Views
-	'scripts/models/torrent_details',
 	'scripts/views/torrents_list',
+	'scripts/views/torrent_details',
 	'scripts/views/settings',
 	'scripts/views/error'
 	], function(namespace, _, $, Backbone,
-		TorrentDetailsLogic,
 		TorrentsList,
+		TorrentDetailsView,
 		SettingsView,
 		ErrorView) {
 		var app = namespace.app;
@@ -27,7 +27,7 @@ define([
 			},
 
 			viewTorrent: function(id) {
-				TorrentDetailsLogic.showTorrent(id);
+				TorrentDetailsView.showTorrent(id);
 			},
 
 			defaultView: function() {
