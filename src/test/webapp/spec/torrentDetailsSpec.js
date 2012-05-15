@@ -30,20 +30,20 @@ define(
 			});
 
 			it("binds rendering to changes in the model", function() {
-				spyOn(TorrentView, 'renderModel');
+				spyOn(TorrentView, 'render');
 				model.set({
 					name: "hello"
 				});
-				expect(TorrentView.renderModel).toHaveBeenCalled();
+				expect(TorrentView.render).toHaveBeenCalled();
 			});
 
 			it("unbinds when onClose is called", function() {
-				spyOn(TorrentView, 'renderModel');
+				spyOn(TorrentView, 'render');
 				TorrentView.onClose();
 				model.set({
 					name: "hello"
 				});
-				expect(TorrentView.renderModel).not.toHaveBeenCalled();
+				expect(TorrentView.render).not.toHaveBeenCalled();
 			});
 
 
@@ -54,12 +54,12 @@ define(
 				});
 				localView.render();
 
-				spyOn(localView,'renderModel');
+				spyOn(localView,'render');
 
 				sampleData[0].name = "hello";
 				app.torrents.fetch();
 
-				expect(localView.renderModel).toHaveBeenCalled();
+				expect(localView.render).toHaveBeenCalled();
 			});
 
 			it("unbinds when closed from fetch() updates", function() {
@@ -69,13 +69,13 @@ define(
 				});
 				localView.render();
 
-				spyOn(localView,'renderModel');
+				spyOn(localView,'render');
 
 				sampleData[0].name = "hello";
 				localView.onClose();
 				app.torrents.fetch();
 
-				expect(localView.renderModel).not.toHaveBeenCalled();
+				expect(localView.render).not.toHaveBeenCalled();
 			});
 
 			afterEach(function() {
