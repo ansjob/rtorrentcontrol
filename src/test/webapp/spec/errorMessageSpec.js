@@ -1,5 +1,5 @@
-define(['scripts/namespace', 'scripts/views/error'],
-	function(namespace, ErrorMessageView) {
+define(['scripts/views/error'],
+	function(ErrorMessageView) {
 
 	var el = "#content";
 	describe("ErrorView", function() {

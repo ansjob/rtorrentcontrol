@@ -36,4 +36,8 @@ define([
 			setupFakeHttp();
 			namespace.app.torrents.fetch();
 		});
+
+		afterEach(function() {
+			window.location.hash = "";
+		})
 	});

@@ -43,17 +43,5 @@ define(
 				expect(container.find("h1")).toHaveHtml("Some.Movie");
 			});
 
-			it("calls the error view when given an ID not in the collection", function() {
-				spyOn(ErrorView, 'render');
-				app.router.navigate("torrents/wtfbbqomg", true);
-				var expected_error = {
-					title: "404 Not found!",
-					message: "The torrent you appear to be looking for was not"+
-							" loaded in the client."
-				};
-				expect(ErrorView.render).toHaveBeenCalled();
-				expect(ErrorView.render).toHaveBeenCalledWith(expected_error);
-			});
-
 		});
 	});
