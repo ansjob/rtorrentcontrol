@@ -46,6 +46,38 @@ define(
 				expect(TorrentView.renderModel).not.toHaveBeenCalled();
 			});
 
+
+			it("updates when fetch is called", function() {
+				var globalModel = app.torrents.get("1234");
+				var localView = new TorrentDetailsView({
+					model: globalModel
+				});
+				localView.render();
+
+				spyOn(localView,'renderModel');
+
+				sampleData[0].name = "hello";
+				app.torrents.fetch();
+
+				expect(localView.renderModel).toHaveBeenCalled();
+			});
+
+			it("unbinds when closed from fetch() updates", function() {
+				var globalModel = app.torrents.get("1234");
+				var localView = new TorrentDetailsView({
+					model: globalModel
+				});
+				localView.render();
+
+				spyOn(localView,'renderModel');
+
+				sampleData[0].name = "hello";
+				localView.onClose();
+				app.torrents.fetch();
+
+				expect(localView.renderModel).not.toHaveBeenCalled();
+			});
+
 			afterEach(function() {
 				TorrentView.onClose();
 			});

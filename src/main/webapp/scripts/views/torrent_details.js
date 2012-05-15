@@ -17,7 +17,13 @@ define([
 
 			initialize: function() {
 				this.model.view = this;
-				this.model.bind("change", this.renderFromModel);
+				var that = this;
+				this.model.bind("change", function() {
+					that.render();
+				});
+				app.torrents.bind("reset", function() {
+					that.render();
+				});
 			},
 
 			render : function() {
@@ -25,9 +31,6 @@ define([
 				this.renderModel(torrent);
 			},
 
-			renderFromModel: function() {
-				this.view.renderModel(this)
-			},
 
 			renderModel: function(torrent) {
 				var output = Mustache.render(
@@ -40,6 +43,8 @@ define([
 
 			onClose: function() {
 				this.model.unbind("change", null, this);
+				delete(this.model.view);
+				app.torrents.unbind("reset", null, this);
 				this.log("closing!");
 			},
 
