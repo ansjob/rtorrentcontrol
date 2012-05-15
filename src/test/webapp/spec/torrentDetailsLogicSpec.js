@@ -8,6 +8,15 @@ define([
 		TorrentDetailsView,
 		ErrorView) {
 
+			var addExtraTorrent = function() {
+				sampleData.push({
+					id: "3456",
+					name: "Some.Movie2",
+					sizeInBytes: 1025,
+					files:["movie.avi", "sample.avi"]
+				});
+			};
+
 		describe("TorrentDetailsLogic", function() {
 
 			it("is included", function() {
@@ -30,15 +39,17 @@ define([
 			})
 
 			it("fetches a torrent that appeared since the last sync", function() {
-				sampleData.push({
-					id: "3456",
-					name: "Some.Movie2",
-					sizeInBytes: 1025,
-					files:["movie.avi", "sample.avi"]
-				});
+				addExtraTorrent();
 				spyOn(namespace.app.torrents, 'fetch');
 				TorrentDetailsLogic.showTorrent("3456");
 				expect(namespace.app.torrents.fetch).toHaveBeenCalled();
+			});
+
+			it("can render a torrent when it has appeared on the server", function() {
+				addExtraTorrent();
+				spyOn(TorrentDetailsView, 'render');
+				TorrentDetailsLogic.showTorrent("3456");
+				expect(TorrentDetailsView.render).toHaveBeenCalled();
 			});
 
 			it("calls the error view when given an ID not in the collection", function() {
