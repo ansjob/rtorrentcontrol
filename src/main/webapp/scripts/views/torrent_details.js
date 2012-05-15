@@ -28,11 +28,6 @@ define([
 
 			render : function() {
 				var torrent = this.model;
-				this.renderModel(torrent);
-			},
-
-
-			renderModel: function(torrent) {
 				var output = Mustache.render(
 					pageTemplate, {
 						id: torrent.get('id'),
