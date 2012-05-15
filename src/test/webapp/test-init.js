@@ -35,6 +35,7 @@ define([
 		beforeEach(function() {
 			setupFakeHttp();
 			namespace.app.torrents.fetch();
+			namespace.app.router.navigate("");
 		});
 
 		afterEach(function() {

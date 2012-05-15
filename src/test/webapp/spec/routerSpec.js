@@ -5,10 +5,20 @@ define(
 	'scripts/views/torrent_details',
 	'scripts/views/settings',
 	'scripts/views/error',
+	'scripts/views/loading',
 	'scripts/namespace'
 	],
-	function(Router, TorrentsList, TorrentDetailsView, SettingsView, ErrorView, namespace)
-	{
+	function(Router,
+		TorrentsList,
+		TorrentDetailsView,
+		SettingsView,
+		ErrorView,
+		LoadingView,
+		namespace)
+		{
+
+		var app = namespace.app;
+
 		beforeEach(function() {
 			try {
 				Router.initialize();
@@ -23,50 +33,90 @@ define(
 
 			it("calls TorrentList.render when the url is #torrents", function() {
 				namespace.app.router.navigate("settings", true);
-				spyOn(TorrentsList, 'render');
+				spyOn(TorrentsList.prototype, 'render');
 				namespace.app.router.navigate("torrents", true);
-				expect(TorrentsList.render).toHaveBeenCalled();
+				expect(TorrentsList.prototype.render).toHaveBeenCalled();
 			});
 
 			it("calls TorrentList.render when the url is #torrents/", function() {
-				namespace.app.router.navigate("", true);
-				spyOn(TorrentsList, 'render');
+				spyOn(TorrentsList.prototype, 'render');
 				namespace.app.router.navigate("torrents/", true);
-				expect(TorrentsList.render).toHaveBeenCalled();
+				expect(TorrentsList.prototype.render).toHaveBeenCalled();
 			});
 
 
-			it("calls TorrentDetails.showTorrent(1234) when the url is #torrents/1234", function() {
+			it("calls TorrentDetails.render when the url is #torrents/1234", function() {
 				namespace.app.router.navigate("", true);
-				spyOn(TorrentDetailsView, 'showTorrent');
+				spyOn(TorrentDetailsView.prototype, 'render');
 				namespace.app.router.navigate("torrents/1234", true);
-				expect(TorrentDetailsView.showTorrent).toHaveBeenCalled();
-				expect(TorrentDetailsView.showTorrent).toHaveBeenCalledWith("1234");
+				expect(TorrentDetailsView.prototype.render).toHaveBeenCalled();
 			});
 
 			it("calls SettingsView.render() when url is #settings", function() {
-				spyOn(SettingsView, 'render');
+				spyOn(SettingsView.prototype, 'render');
 				namespace.app.router.navigate("settings", true);
-				expect(SettingsView.render).toHaveBeenCalled();
+				expect(SettingsView.prototype.render).toHaveBeenCalled();
 			});
 
 			it("calls SettingsView.render() when url is #settings/", function() {
 				namespace.app.router.navigate("", true);
-				spyOn(SettingsView, 'render');
+				spyOn(SettingsView.prototype, 'render');
 				namespace.app.router.navigate("settings/", true);
-				expect(SettingsView.render).toHaveBeenCalled();
+				expect(SettingsView.prototype.render).toHaveBeenCalled();
 			});
-
 
 			it("calls ErrorView.render() when a weird-looking url is entered", function() {
-				var renderSpy = spyOn(ErrorView, 'render');
-				namespace.app.router.navigate("someWeirdUrl", true);
-				var expected_error = {
-					title: "404 Error",
-					message: "The route you specified <pre>#someWeirdUrl</pre> is not valid."
+				spyOn(ErrorView.prototype, 'render');
+				app.router.navigate("someWeirdUrl", true);
+				expect(ErrorView.prototype.render).toHaveBeenCalled();
+			});
+
+			describe("Fetching torrents when an unknown torrent is requested", function() {
+
+				var addNewTorrentToServer = function() {
+					sampleData.push({
+						id: "3456",
+						name: "Some.Movie.2",
+						sizeInBytes: 1025,
+						files:["movie.avi", "sample.avi"]
+					});
 				};
 
-				expect(renderSpy.mostRecentCall.args).toEqual([expected_error]);
-			});
+				beforeEach(function() {
+					addNewTorrentToServer();
+				});
+
+				it("calls fetch() on the collection", function() {
+					spyOn(app.torrents, 'fetch');
+					app.router.viewTorrent("3456");
+					expect(app.torrents.fetch).toHaveBeenCalled();
+				});
+
+				it("displays a loadingMessage while the collection is fetched", function() {
+					spyOn(LoadingView.prototype, 'render');
+					app.router.viewTorrent("3456");
+					expect(LoadingView.prototype.render).toHaveBeenCalled();
+				});
+
+				it("hides the loading message afterwards", function() {
+					spyOn(LoadingView.prototype, 'onClose');
+					app.router.viewTorrent("3456");
+					expect(LoadingView.prototype.onClose).toHaveBeenCalled();
+				});
+
+				it("shows an error message if there is a connection error", function() {
+					spyOn(ErrorView.prototype, 'render');
+					jasmine.FakeAjax.clearContext();
+					fakeAjax({
+						registrations: [
+							{url: "api/torrents", errorMessage: "Some error occurred"}
+						]
+					});
+					app.router.viewTorrent("3456");
+					expect(ErrorView.prototype.render).toHaveBeenCalled();
+				});
+			})
+
+
 		});
 	});

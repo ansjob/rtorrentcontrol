@@ -1,11 +1,22 @@
 define([
-	"scripts/router",
 	"scripts/collections/torrents",
+	"backbone"
 	],
-	function(Router, TorrentCollection){
+	function( TorrentCollection, Backbone){
 		var initialize = function(){
+
+			/* Extend Backbone with a close mthod for views */
+			Backbone.View.prototype.close = function() {
+				this.remove();
+				this.unbind();
+				if (this.onClose)
+					this.onClose();
+			};
+
 			TorrentCollection.initialize();
-			Router.initialize();
+			require(["scripts/router"], function(Router) {
+				Router.initialize();
+			});
 		};
 		return {
 			initialize	: initialize,

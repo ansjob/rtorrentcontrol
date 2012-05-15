@@ -4,72 +4,51 @@ define([
 	'backbone',
 	'underscore',
 	'mustache',
-	'scripts/views/error',
 	//Templates:
 	'text!templates/torrent_details.html',
 	],function(namespace, $, Backbone, _, Mustache,
-		ErrorView,
 		pageTemplate
 		) {
 
+		var DEBUG = false;
 		var app = namespace.app;
 
 		var TorrentDetails = Backbone.View.extend({
 
-			el : "#content",
-
-			render : function(torrent) {
-				this.template(torrent);
-				return this;
+			initialize: function() {
+				this.model.view = this;
+				this.model.bind("change", this.renderFromModel);
 			},
 
-			template : function(torrent) {
+			render : function() {
+				var torrent = this.model;
+				this.renderModel(torrent);
+			},
+
+			renderFromModel: function() {
+				this.view.renderModel(this)
+			},
+
+			renderModel: function(torrent) {
 				var output = Mustache.render(
 					pageTemplate, {
 						id: torrent.get('id'),
 						name: torrent.get('name')
 					});
-				$(this.el).html(output);
+				$(torrent.view.el).html(output);
 			},
 
-			showTorrentNoRetry : function(torrent) {
-				if (torrent){
-					this.render(torrent);
-				} else {
-					ErrorView.render({
-						title: "404 Not found!",
-						message: "The torrent you appear to be looking for does not exist on the server."
-					});
-				}
+			onClose: function() {
+				this.model.unbind("change", null, this);
+				this.log("closing!");
 			},
 
-			showTorrent : function(id) {
-				var torrent = app.torrents.get(id);
-				if (torrent){
-					this.render(torrent);
-				} else {
-					this.fetchAndTryAgain(id);
-				}
-			},
-
-			fetchAndTryAgain: function(id) {
-				var that = this;
-				app.torrents.fetch({
-					success: function() {
-						var torrent = app.torrents.get(id);
-						that.showTorrentNoRetry(torrent);
-					},
-					error: function() {
-						ErrorView.render({
-							title: "Connection error",
-							message: "An I/O error occured while fetching the torrent!"
-						})
-					}
-				});
+			log: function(msg) {
+				if (DEBUG)
+					console.log("[TORRENT DETAILS VIEW] " + msg);
 			}
-
 		});
 
-		return new TorrentDetails();
+		return TorrentDetails;
 
 	});
