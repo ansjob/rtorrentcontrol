@@ -1,11 +1,12 @@
 define([
 	"scripts/collections/torrents",
+	"scripts/views/search_field",
 	"backbone"
 	],
-	function( TorrentCollection, Backbone){
+	function( TorrentCollection, SearchView, Backbone){
 		var initialize = function(){
 
-			/* Extend Backbone with a close mthod for views */
+			/* Extend Backbone with a close method for views */
 			Backbone.View.prototype.close = function() {
 				this.remove();
 				this.unbind();
@@ -16,6 +17,7 @@ define([
 			TorrentCollection.initialize();
 			require(["scripts/router"], function(Router) {
 				Router.initialize();
+				SearchView.initialize();
 			});
 		};
 		return {

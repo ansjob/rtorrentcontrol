@@ -121,7 +121,7 @@ define(
 					app.router.viewTorrent("non-existant");
 					expect(ErrorView.prototype.render).toHaveBeenCalled();
 				});
-			})
+			});
 
 
 		});
