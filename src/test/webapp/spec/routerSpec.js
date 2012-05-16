@@ -115,6 +115,12 @@ define(
 					app.router.viewTorrent("3456");
 					expect(ErrorView.prototype.render).toHaveBeenCalled();
 				});
+
+				it("shows an error message if the torrent was not found", function() {
+					spyOn(ErrorView.prototype, 'render');
+					app.router.viewTorrent("non-existant");
+					expect(ErrorView.prototype.render).toHaveBeenCalled();
+				});
 			})
 
 
