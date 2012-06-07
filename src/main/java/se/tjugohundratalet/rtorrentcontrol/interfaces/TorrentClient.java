@@ -1,11 +1,11 @@
-package se.tjugohundratalet.rtorrentcontrol.models.logic;
+package se.tjugohundratalet.rtorrentcontrol.interfaces;
 
 import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
-import se.tjugohundratalet.rtorrentcontrol.models.Torrent;
 import se.tjugohundratalet.rtorrentcontrol.models.Configuration;
+import se.tjugohundratalet.rtorrentcontrol.models.Torrent;
 
 /**
  * A wrapper interface for the interaction between this

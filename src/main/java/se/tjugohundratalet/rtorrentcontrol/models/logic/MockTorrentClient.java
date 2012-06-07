@@ -12,7 +12,7 @@ import se.tjugohundratalet.rtorrentcontrol.models.Configuration;
 import se.tjugohundratalet.rtorrentcontrol.models.File;
 import se.tjugohundratalet.rtorrentcontrol.models.IncompleteFile;
 import se.tjugohundratalet.rtorrentcontrol.models.Torrent;
-import se.tjugohundratalet.rtorrentcontrol.models.logic.TorrentClient;
+import se.tjugohundratalet.rtorrentcontrol.interfaces.TorrentClient;
 
 /**
  *
