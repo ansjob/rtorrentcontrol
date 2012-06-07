@@ -11,7 +11,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import se.tjugohundratalet.rtorrentcontrol.models.Torrent;
-import se.tjugohundratalet.rtorrentcontrol.models.logic.MockTorrentClient;
+import se.tjugohundratalet.rtorrentcontrol.logic.MockTorrentClient;
 import se.tjugohundratalet.rtorrentcontrol.interfaces.TorrentClient;
 
 /**

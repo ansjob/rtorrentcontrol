@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package se.tjugohundratalet.rtorrentcontrol.testing.logic;
+package se.tjugohundratalet.rtorrentcontrol.testing.structs;
 import static org.junit.Assert.*;
 
 import java.util.HashMap;
@@ -29,14 +29,6 @@ public class ConfigurationsTest implements ConfigChangeListener {
 		Map<String, Class> configurationTypes = new HashMap<String, Class>();
 		configurationTypes.put("val", Integer.class);
 		config = new Configuration(configurationTypes);
-	}
-
-	@BeforeClass
-	public static void setUpClass() throws Exception {
-	}
-
-	@AfterClass
-	public static void tearDownClass() throws Exception {
 	}
 
 	@Before

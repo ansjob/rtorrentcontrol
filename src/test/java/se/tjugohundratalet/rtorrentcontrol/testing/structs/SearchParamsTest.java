@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package se.tjugohundratalet.rtorrentcontrol.testing.logic;
+package se.tjugohundratalet.rtorrentcontrol.testing.structs;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;

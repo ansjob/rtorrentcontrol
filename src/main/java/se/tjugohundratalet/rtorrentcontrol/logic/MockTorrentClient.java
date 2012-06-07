@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package se.tjugohundratalet.rtorrentcontrol.models.logic;
+package se.tjugohundratalet.rtorrentcontrol.logic;
 
 import java.io.InputStream;
 import java.lang.Class;

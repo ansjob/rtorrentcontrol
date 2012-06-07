@@ -6,13 +6,14 @@ package se.tjugohundratalet.rtorrentcontrol.testing.logic;
 
 import java.util.List;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import se.tjugohundratalet.rtorrentcontrol.exceptions.NoQueryParameterException;
+import se.tjugohundratalet.rtorrentcontrol.logic.MockTorrentSearcher;
 import se.tjugohundratalet.rtorrentcontrol.models.SearchParameters;
 import se.tjugohundratalet.rtorrentcontrol.models.SearchResult;
-import se.tjugohundratalet.rtorrentcontrol.models.logic.MockTorrentSearcher;
+import static se.tjugohundratalet.rtorrentcontrol.testing.TestingUtils.assertContains;
+import static se.tjugohundratalet.rtorrentcontrol.testing.TestingUtils.assertNotEquals;
 
 /**
  *
@@ -22,6 +23,9 @@ public class MockTorrentSearcherTest {
 
 	protected MockTorrentSearcher mock = new MockTorrentSearcher();
 	protected SearchParameters params;
+
+	protected static final long FOUR_GIGS = 4L * (1 << 30);
+
 
 	@Before
 	public void resetParameters() {
@@ -48,11 +52,30 @@ public class MockTorrentSearcherTest {
 		}
 	}
 
-	private static void assertContains(String largeString, String substring) {
-		String errorMsg = String.format("Expected <%s> to contain <%s>", largeString, substring);
-		assertTrue(errorMsg, largeString.toLowerCase().contains(substring.toLowerCase()));
+	@Test
+	public void allSamplesAreFourGigs() {
+		addQueryParameter();
+		for (SearchResult res : mock.search(params)) {
+			assertEquals(FOUR_GIGS, res.getTotalSize());
+		}
 	}
 
+	@Test
+	public void allHasNonZeroSeeders() {
+		addQueryParameter();
+		for (SearchResult res : mock.search(params)){
+			assertNotEquals(0, res.seeders);
+		}
+	}
+
+	@Test
+	public void allHasNonZeroLeachers() {
+		addQueryParameter();
+		for (SearchResult res : mock.search(params)) {
+			assertNotEquals(0, res.leachers);
+		}
+	}
+	
 	private void addQueryParameter() {
 		params.addParameter("query", "movie");
 	}

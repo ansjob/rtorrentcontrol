@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 import org.junit.*;
 import se.tjugohundratalet.rtorrentcontrol.models.Configuration;
 import se.tjugohundratalet.rtorrentcontrol.models.Torrent;
-import se.tjugohundratalet.rtorrentcontrol.models.logic.MockTorrentClient;
+import se.tjugohundratalet.rtorrentcontrol.logic.MockTorrentClient;
 import se.tjugohundratalet.rtorrentcontrol.interfaces.TorrentClient;
 
 /**

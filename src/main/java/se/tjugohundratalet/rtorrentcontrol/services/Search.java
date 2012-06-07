@@ -16,8 +16,8 @@ import se.tjugohundratalet.rtorrentcontrol.interfaces.TorrentClient;
 import se.tjugohundratalet.rtorrentcontrol.interfaces.TorrentSearcher;
 import se.tjugohundratalet.rtorrentcontrol.models.SearchParameters;
 import se.tjugohundratalet.rtorrentcontrol.models.SearchResult;
-import se.tjugohundratalet.rtorrentcontrol.models.logic.MockTorrentClient;
-import se.tjugohundratalet.rtorrentcontrol.models.logic.MockTorrentSearcher;
+import se.tjugohundratalet.rtorrentcontrol.logic.MockTorrentClient;
+import se.tjugohundratalet.rtorrentcontrol.logic.MockTorrentSearcher;
 
 /**
  * @author ansjob
