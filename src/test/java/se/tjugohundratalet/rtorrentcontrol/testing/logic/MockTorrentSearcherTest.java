@@ -18,7 +18,7 @@ import se.tjugohundratalet.rtorrentcontrol.models.logic.MockTorrentSearcher;
  *
  * @author ansjob
  */
-public class MockTorrentSearcherTests {
+public class MockTorrentSearcherTest {
 
 	protected MockTorrentSearcher mock = new MockTorrentSearcher();
 	protected SearchParameters params;

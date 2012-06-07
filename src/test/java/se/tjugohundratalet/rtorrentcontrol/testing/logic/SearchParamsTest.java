@@ -14,9 +14,9 @@ import se.tjugohundratalet.rtorrentcontrol.models.SearchParameters;
  *
  * @author ansjob
  */
-public class SearchParamsTests {
+public class SearchParamsTest {
 
-	public SearchParamsTests() {
+	public SearchParamsTest() {
 	}
 
 	SearchParameters params;
