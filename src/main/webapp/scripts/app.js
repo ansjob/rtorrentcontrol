@@ -4,6 +4,7 @@ define([
 	"backbone"
 	],
 	function( TorrentCollection, SearchView, Backbone){
+		
 		var initialize = function(){
 
 			/* Extend Backbone with a close method for views */

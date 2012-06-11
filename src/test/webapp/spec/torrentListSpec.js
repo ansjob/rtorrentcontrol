@@ -1,8 +1,7 @@
 define(
 	[
 	'scripts/views/torrents_list',
-	'scripts/namespace'
-	],
+	'scripts/namespace',	],
 	function(TorrentsListView, namespace)
 	{
 		describe("TorrentsList", function() {
@@ -18,6 +17,12 @@ define(
 				el = listView.el;
 			});
 
+			var verifyLengthComparedToCollection = function() {
+				var ul= $(el).find("ul");
+				var lis = ul.find("li");
+				expect(lis.length).toEqual(sampleData.length);
+			};
+
 			it("has a method render", function() {
 				expect(typeof(listView.render)).toEqual("function");
 			});
@@ -26,25 +31,17 @@ define(
 				expect(typeof(listView.onClose)).toEqual("function");
 			});
 
-			it("calls render when a model is updated", function() {
-				spyOn(listView, 'render');
-				var model = app.torrents.get("1234");
-				model.set({
-					name: "hello"
+			it("has a ul of the same length as the model data", function() {
+				verifyLengthComparedToCollection();
 				});
-				expect(listView.render).toHaveBeenCalled();
+
+			it("removes a li when the collection shrinks", function() {
+				sampleData.pop();
+				app.torrents.fetch();
+				verifyLengthComparedToCollection();
+
 			});
 
-			it("unbinds itself when called to close", function() {
-				spyOn(listView, 'render');
-				listView.onClose();
-				var model = app.torrents.get("1234");
-				model.set({
-					name: "hello"
-				});
-				expect(listView.render).not.toHaveBeenCalled();
-			});
-			
 			afterEach(function() {
 				listView.onClose();
 			});

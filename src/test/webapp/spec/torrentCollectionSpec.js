@@ -1,31 +1,41 @@
 define(
 	[
-	 'scripts/collections/torrents',
-	 'scripts/namespace'
-	 ],
-	 function(TorrentCollection, namespace)
-	 {
+	'scripts/namespace',
+	'jquery'
+	],
+	function(namespace, $)
+	{
 		var app = namespace.app;
 
 
 
 		describe("TorrentCollection", function() {
-			beforeEach(function() {
-				try {
-					Router.initialize();
-				} catch(e) {}
+
+			var emptyCollection = function() {
+				sampleData.length = 0;
+				app.torrents.fetch();
+			}
+
+			it("loads the test elements elements", function(){
+				expect(app.torrents.length).toEqual(sampleData.length);
 			});
 
-			it("loads the two test elements elements", function(){
-				expect(app.torrents.length).toEqual(2);
+			it("removes models when they are removed from the server", function() {
+				emptyCollection();
+				expect(app.torrents.length).toEqual(0);
 			});
 
-		});
+			it("calls methods bound to the models when removing them", function() {
+				var model = app.torrents.at(0);
 
-		describe("Updating the collection", function() {
+				var SomeClass = function(){};
+				SomeClass.prototype.callback = function() {};
+				spyOn(SomeClass.prototype, 'callback');
 
-			it("has two elements to begin with", function() {
-				expect(app.torrents.length).toEqual(2);
+				model.bind("remove", SomeClass.prototype.callback);
+				app.torrents.remove(model);
+
+				expect(SomeClass.prototype.callback).toHaveBeenCalled();
 			});
 
 			it("adds a third element when calling fetch", function() {
@@ -38,5 +48,7 @@ define(
 				app.torrents.fetch();
 				expect(app.torrents.length).toEqual(3);
 			});
+
 		});
-	 });
+
+	});
