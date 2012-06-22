@@ -1,19 +1,19 @@
 define([
 	'scripts/namespace',
 	'jquery',
-	'backbone',
+	'marionette',
 	'underscore',
 	'mustache',
 	//Templates:
 	'text!templates/torrent_details.html',
-	],function(namespace, $, Backbone, _, Mustache,
+	],function(namespace, $, Marionette, _, Mustache,
 		pageTemplate
 		) {
 
 		var DEBUG = false;
 		var app = namespace.app;
 
-		var TorrentDetails = Backbone.View.extend({
+		var TorrentDetails = Marionette.ItemView.extend({
 
 			initialize: function() {
 				this.model.view = this;

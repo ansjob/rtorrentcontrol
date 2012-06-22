@@ -1,17 +1,17 @@
 define([
 	'scripts/namespace',
 	'jquery',
-	'backbone',
+	'marionette',
 	'underscore',
 	'mustache',
 	//Templates:
 	'text!templates/errorMessage.html'
-	],function(namespace, $, Backbone, _, Mustache,
+	],function(namespace, $, Marionette, _, Mustache,
 		errorTemplate) {
 
 		var app = namespace.app;
 
-		var ErrorView = Backbone.View.extend({
+		var ErrorView = Marionette.ItemView.extend({
 			render: function() {
 				var message = this.model;
 				var output = Mustache.render(errorTemplate, {

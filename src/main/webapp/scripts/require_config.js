@@ -14,6 +14,7 @@ define([], function() {
 			'bootstrap-collapse'	: 'scripts/lib/plugin/bootstrap-collapse',
 			'text'					: 'scripts/lib/text',
 			'mustache'				: 'scripts/lib/requirejs.mustache',
+			'marionette'			: 'scripts/lib/backbone.marionette.min',
 			/* Testing libs */
 			'mock-ajax'				: 'scripts/lib/mock-ajax',
 			'fake-ajax'				: 'scripts/lib/jasmine-fake-ajax-0.3.4',

@@ -4,14 +4,12 @@ define([
 	'jquery',
 	'backbone',
 	//Views
-	'scripts/main_view',
 	'scripts/views/torrents_list',
 	'scripts/views/torrent_details',
 	'scripts/views/settings',
 	'scripts/views/error',
 	'scripts/views/loading'
 	], function(namespace, _, $, Backbone,
-		MainView,
 		TorrentsList,
 		TorrentDetailsView,
 		SettingsView,
@@ -20,9 +18,10 @@ define([
 		var app = namespace.app;
 
 		var rTorrentRouter = Backbone.Router.extend({
-
+			
 			initialize: function() {
-				this.mainView = MainView;
+				_.bindAll(this, 'io_error', 'torrentFetchingDone');
+				this.layout = namespace.rootLayout;
 			},
 
 			routes: {
@@ -50,31 +49,29 @@ define([
 					message: "Updating torrent information..."
 				}
 				this.showLoadingMessage(data);
-				var that = this;
 				app.torrents.fetch({
-					success: function() {
-						var torrent = app.torrents.get(id);
+					success: this.torrentFetchingDone,
+					error: this.io_error
+				});
+			},
+			
+			torrentFetchingDone: function(id) {
+				var torrent = app.torrents.get(id);
 						if (!torrent) {
-							that.showError({
+							this.showError({
 								title: "404 Not found!",
 								message: "The torrent you're looking for does not seem to exist"
 							});
 						} else {
-
-							that.renderTorrentView(torrent);
+							this.renderTorrentView(torrent);
 						}
-					},
-					error: function() {
-						that.io_error();
-					}
-				});
 			},
 
 			renderTorrentView : function(torrentModel) {
 				var torrentView = new TorrentDetailsView({
 					model : torrentModel
 				});
-				this.mainView.showView(torrentView);
+				this.layout.content.show(torrentView);
 			},
 
 			io_error: function() {
@@ -89,7 +86,7 @@ define([
 				var errorView = new ErrorView({
 					model: data
 				});
-				this.mainView.showView(errorView);
+				this.layout.content.show(errorView);
 			},
 
 			showLoadingMessage: function(data) {
@@ -97,7 +94,7 @@ define([
 					model: data
 				});
 				loadingView.render(data);
-				this.mainView.showView(loadingView);
+				this.layout.content.show(loadingView);
 			},
 
 			defaultView: function() {
@@ -105,13 +102,15 @@ define([
 			},
 
 			torrentsList: function() {
-				var listView = new TorrentsList();
-				this.mainView.showView(listView);
+				var listView = new TorrentsList({
+					collection: app.torrents
+				});
+				this.layout.content.show(listView);
 			},
 
 			settingsView : function() {
 				var settingsView = new SettingsView();
-				this.mainView.showView(settingsView);
+				this.layout.content.show(settingsView);
 			},
 
 			unknownRoute: function(path) {
@@ -122,7 +121,7 @@ define([
 				var errorView = new ErrorView({
 					model: data
 				});
-				this.mainView.showView(errorView);
+				this.layout.content.show(errorView);
 			}
 		});
 

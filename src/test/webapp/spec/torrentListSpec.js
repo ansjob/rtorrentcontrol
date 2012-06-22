@@ -8,18 +8,17 @@ define(
 
 			var app = namespace.app;
 			var listView;
-			var el;
-			var model;
+			
 
 			beforeEach(function() {
-				listView = new TorrentsListView();
+				listView = new TorrentsListView({
+					collection: app.torrents
+				});
 				listView.render();
-				el = listView.el;
 			});
 
 			var verifyLengthComparedToCollection = function() {
-				var ul= $(el).find("ul");
-				var lis = ul.find("li");
+				var lis = $(listView.el).find("li");
 				expect(lis.length).toEqual(sampleData.length);
 			};
 
@@ -27,24 +26,26 @@ define(
 				expect(typeof(listView.render)).toEqual("function");
 			});
 
-			it("has a method onClose", function() {
-				expect(typeof(listView.onClose)).toEqual("function");
-			});
-
 			it("has a ul of the same length as the model data", function() {
 				verifyLengthComparedToCollection();
-				});
+			});
+				
+			it("empties the list when the collection is emptied", function() {
+				sampleData.length = 0;
+				app.torrents.fetch();
+				verifyLengthComparedToCollection();
+			});
 
 			it("removes a li when the collection shrinks", function() {
 				sampleData.pop();
 				app.torrents.fetch();
 				verifyLengthComparedToCollection();
-
 			});
 
 			afterEach(function() {
-				listView.onClose();
+				listView.close();
 			});
+			
 
 		});
 	});

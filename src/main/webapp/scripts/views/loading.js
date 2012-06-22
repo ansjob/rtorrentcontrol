@@ -1,16 +1,16 @@
 define([
 	'jquery',
-	'backbone',
+	'marionette',
 	'underscore',
 	'mustache',
 	//Templates:
 	'text!templates/loadingMessage.html'
-	],function($, Backbone, _, Mustache,
+	],function($, Marionette, _, Mustache,
 		loadingTemplate) {
 
 		var DEBUG = false;
 
-		var LoadingView = Backbone.View.extend({
+		var LoadingView = Marionette.ItemView.extend({
 			render: function() {
 				var data = this.model;
 				var output = Mustache.render(loadingTemplate, {

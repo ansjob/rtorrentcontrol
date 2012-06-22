@@ -1,18 +1,18 @@
 define([
 	'scripts/namespace',
 	'jquery',
-	'backbone',
+	'marionette',
 	'underscore',
 	'mustache',
 	//Templates:
 	'text!templates/search_field.html'
-	],function(namespace, $, Backbone, _, Mustache,
+	],function(namespace, $, Marionette, _, Mustache,
 		pageTemplate) {
 
 	var app = namespace.app;
 	var DEBUG = false;
 
-	var SearchView= Backbone.View.extend({
+	var SearchView= Marionette.ItemView.extend({
 
 		initialize: function() {
 		},

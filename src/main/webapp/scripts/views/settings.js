@@ -1,17 +1,17 @@
 define([
 	'scripts/namespace',
 	'jquery',
-	'backbone',
+	'marionette',
 	'underscore',
 	'mustache',
 	//Templates:
 	'text!templates/settings.html'
-	],function(namespace, $, Backbone, _, Mustache,
+	],function(namespace, $, Marionette, _, Mustache,
 		pageTemplate) {
 
 	var app = namespace.app;
 
-	var SettingsView = Backbone.View.extend({
+	var SettingsView = Marionette.CompositeView.extend({
 
 		render: function(id) {
 			var output = Mustache.render(pageTemplate, {id: id});

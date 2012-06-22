@@ -1,24 +1,23 @@
 define([
+	"marionette",
+	"scripts/namespace",
 	"scripts/collections/torrents",
-	"scripts/views/search_field",
-	"backbone"
+	"scripts/layouts/default"
 	],
-	function( TorrentCollection, SearchView, Backbone){
+	function(Marionette, namespace, TorrentCollection, DefaultLayout){
 		
 		var initialize = function(){
 
-			/* Extend Backbone with a close method for views */
-			Backbone.View.prototype.close = function() {
-				this.remove();
-				this.unbind();
-				if (this.onClose)
-					this.onClose();
-			};
-
 			TorrentCollection.initialize();
+			
+			namespace.rootLayout = new DefaultLayout();
+			
+			namespace.rootLayout.render();
+			
+			namespace.app.vent = new Marionette.EventAggregator();
+
 			require(["scripts/router"], function(Router) {
 				Router.initialize();
-				SearchView.initialize();
 			});
 		};
 		return {

@@ -1,29 +1,30 @@
-define(['backbone' ,'mustache', 'text!templates/torrent_list_item_view.html'], function(Backbone, Mustache,template) {
+define(['marionette' ,'mustache', 
+	'text!templates/torrent_list_item_view.html'], function(Marionette, Mustache,template) {
 
 
-	var TorrentListViewItem = Backbone.View.extend({
+		var TorrentListViewItem = Marionette.ItemView.extend({
 
-		tagName: "li",
+			tagName: "li",
 
-		initialize: function() {
-			_.bindAll(this, "render", "remove", "log");
-		},
+			initialize: function() {
+				_.bindAll(this, "render", "remove", "log");
+			},
 
-		render: function() {
-			var output = Mustache.render(template);
-			$(this.el).html(output);
-		},
+			render: function() {
+				var output = Mustache.render(template);
+				$(this.el).html(output);
+			},
 
-		remove: function() {
-			this.log("removing myself");
-		},
+			remove: function() {
+				this.log("removing myself");
+			},
 
 
-		log: function(msg) {
-			if (this.DEBUG)
-				console.log("[TORRENT LIST VIEW ITEM] " + msg);
-		}
+			log: function(msg) {
+				if (this.DEBUG)
+					console.log("[TORRENT LIST VIEW ITEM] " + msg);
+			}
+		});
+		TorrentListViewItem.prototype.DEBUG = false;
+		return TorrentListViewItem;
 	});
-	TorrentListViewItem.prototype.DEBUG = false;
-	return TorrentListViewItem;
-});
