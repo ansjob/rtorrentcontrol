@@ -1,11 +1,11 @@
 define([
-	'scripts/namespace',
+	'namespace',
 	'jquery',
 	'marionette',
 	'underscore',
 	'mustache',
 	//Templates:
-	'text!templates/settings.html'
+	'text!../../templates/settings.html'
 	],function(namespace, $, Marionette, _, Mustache,
 		pageTemplate) {
 

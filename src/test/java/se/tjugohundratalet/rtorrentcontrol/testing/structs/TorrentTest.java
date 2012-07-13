@@ -2,12 +2,11 @@ package se.tjugohundratalet.rtorrentcontrol.testing.structs;
 
 import java.util.Arrays;
 import java.util.List;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 import se.tjugohundratalet.rtorrentcontrol.models.File;
 import se.tjugohundratalet.rtorrentcontrol.models.Torrent;
-
-import static org.junit.Assert.*;
 
 /**
  *
@@ -34,9 +33,9 @@ public class TorrentTest {
 		assertEquals(t1, t2);
 	}
 
-	@Test(expected=UnsupportedOperationException.class)
+	@Test(expected=Exception.class)
 	public void doesNotAllowFileListAlterations(){
-		t1.files.add(new File(".file2", 128));
+		t1.getFiles().add(new File(".file2", 128));
 	}
 
 	protected Torrent generateSample() {

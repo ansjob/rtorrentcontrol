@@ -16,54 +16,57 @@
 			<scope>test</scope>
 			<type>jar</type>
 		</dependency>
-		<dependency>
-			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-server</artifactId>
-			<version>1.13-b01</version>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-servlet</artifactId>
-			<version>1.13-b01</version>
-		</dependency>
+
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-web</artifactId>
 			<version>1.2.0</version>
 		</dependency>
+
 		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.16</version>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2.1</version>
 		</dependency>
+
+		<!-- The servlet APIs -->
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+		</dependency>
+
+		<!-- Jersey -->
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-servlet</artifactId>
+			<version>1.12</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-server</artifactId>
+			<version>1.12</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-json</artifactId>
+			<version>1.12</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey.contribs</groupId>
+			<artifactId>jersey-multipart</artifactId>
+			<version>1.12</version>
+		</dependency>
+
+
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
 			<version>1.1.1</version>
 			<classifier>api</classifier>
 		</dependency>
-		<dependency>
-			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-json</artifactId>
-			<version>1.13-b01</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-collections</groupId>
-			<artifactId>commons-collections</artifactId>
-			<version>3.2.1</version>
-		</dependency>
-	 <dependency>
-	  <groupId>com.sun.jersey.jersey-test-framework</groupId>
-	  <artifactId>jersey-test-framework-core</artifactId>
-	  <version>1.12</version>
-	  <scope>test</scope>
-	 </dependency>
-	 <dependency>
-	  <groupId>com.sun.jersey.jersey-test-framework</groupId>
-	  <artifactId>jersey-test-framework-grizzly</artifactId>
-	  <version>1.12</version>
-	  <scope>test</scope>
-	 </dependency>
+
 	</dependencies>
 	<build>
 		<finalName>rtorrentcontrol</finalName>
@@ -87,7 +90,7 @@
 						<configuration>
 							<target>
 								<echo>Running Jasmine Test Suite</echo>
-								<exec dir="src/test/webapp" executable="phantomjs"
+								<exec dir="src/main/webapp" executable="phantomjs"
 									  resolveexecutable="true" failonerror="true">
 									<arg value="run-jasmine.js" />
 									<arg value="SpecRunner.html" />

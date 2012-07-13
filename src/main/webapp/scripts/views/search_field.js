@@ -1,11 +1,11 @@
 define([
-	'scripts/namespace',
+	'namespace',
 	'jquery',
 	'marionette',
 	'underscore',
 	'mustache',
 	//Templates:
-	'text!templates/search_field.html'
+	'text!../../templates/search_field.html'
 	],function(namespace, $, Marionette, _, Mustache,
 		pageTemplate) {
 

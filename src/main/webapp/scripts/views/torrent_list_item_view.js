@@ -1,5 +1,5 @@
 define(['marionette' ,'mustache', 
-	'text!templates/torrent_list_item_view.html'], function(Marionette, Mustache,template) {
+	'text!../../templates/torrent_list_item_view.html'], function(Marionette, Mustache,template) {
 
 
 		var TorrentListViewItem = Marionette.ItemView.extend({

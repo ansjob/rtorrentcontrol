@@ -1,4 +1,4 @@
-define(['marionette', 'underscore', 'jquery', 'text!templates/layouts/default.html'], 
+define(['marionette', 'underscore', 'jquery', 'text!../../templates/layouts/default.html'], 
 	function(Marionette, _, $, template) {
 		
 	AppLayout =	Marionette.Layout.extend({

@@ -1,14 +1,14 @@
 define([
-	'scripts/namespace',
+	'namespace',
 	'underscore',
 	'jquery',
 	'backbone',
 	//Views
-	'scripts/views/torrents_list',
-	'scripts/views/torrent_details',
-	'scripts/views/settings',
-	'scripts/views/error',
-	'scripts/views/loading'
+	'views/torrents_list',
+	'views/torrent_details',
+	'views/settings',
+	'views/error',
+	'views/loading'
 	], function(namespace, _, $, Backbone,
 		TorrentsList,
 		TorrentDetailsView,

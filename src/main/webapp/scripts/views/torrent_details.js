@@ -1,11 +1,11 @@
 define([
-	'scripts/namespace',
+	'namespace',
 	'jquery',
 	'marionette',
 	'underscore',
 	'mustache',
 	//Templates:
-	'text!templates/torrent_details.html',
+	'text!../../templates/torrent_details.html',
 	],function(namespace, $, Marionette, _, Mustache,
 		pageTemplate
 		) {

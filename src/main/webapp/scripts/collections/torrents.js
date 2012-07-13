@@ -2,8 +2,8 @@ define([
 	'jquery',
 	'backbone',
 	'underscore',
-	'scripts/namespace',
-	'scripts/models/torrent'
+	'namespace',
+	'models/torrent'
 	], function ($, Backbone, _, namespace,
 		TorrentModel) {
 		var app = namespace.app;

@@ -2,7 +2,7 @@ define([
 	'marionette',
 	'underscore',
 	'jquery',
-	'scripts/views/torrent_list_item_view',
+	'views/torrent_list_item_view',
 	],function(Marionette, _, $,
 		TorrentListItemView) {
 

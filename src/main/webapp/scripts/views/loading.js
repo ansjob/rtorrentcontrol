@@ -4,7 +4,7 @@ define([
 	'underscore',
 	'mustache',
 	//Templates:
-	'text!templates/loadingMessage.html'
+	'text!../../templates/loadingMessage.html'
 	],function($, Marionette, _, Mustache,
 		loadingTemplate) {
 

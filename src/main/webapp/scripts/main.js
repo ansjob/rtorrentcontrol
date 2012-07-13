@@ -1,11 +1,7 @@
-require(['require_config'], function() {
-	require( ['scripts/app' ,'jquery'],
-		function(App, $) {
-			require(['order!bootstrap', 'order!bootstrap-collapse'], function() {
-				require.config({
-					baseUrl: '..'
-				});
-				App.initialize();
-			});
-		});
-});
+require( ['lib/order!require_config' ],
+	function() {
+		require(["lib/order!app", "lib/order!jquery", "lib/order!bootstrap", "lib/order!bootstrap-collapse"], function(App, $) {
+			App.initialize();
+		})
+	}
+);

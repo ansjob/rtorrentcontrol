@@ -1,5 +1,6 @@
 package se.tjugohundratalet.rtorrentcontrol.models;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -11,14 +12,20 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class Torrent {
-	public final String id;
-	public final String name;
-	public final List<File> files;
+	private final String id;
+	private final String name;
+	private List<File> files;
 
 	public Torrent(String id, String name, List<File> files) {
 		this.id = id;
 		this.name = name;
 		this.files = files;
+	}
+
+	private Torrent() {
+		id = Constants.UNKNOWN;
+		name = Constants.UNKNOWN;
+		files = new ArrayList<File>();
 	}
 
 	@Override
@@ -51,6 +58,16 @@ public class Torrent {
 		return hash;
 	}
 
+	public String getId() {
+		return id;
+	}
 
+	public String getName() {
+		return name;
+	}
+
+	public List<File> getFiles() {
+		return Collections.unmodifiableList(files);
+	}
 
 }

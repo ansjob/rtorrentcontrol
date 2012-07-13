@@ -8,28 +8,17 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class File {
-	protected String fileName;
-	protected long size;
+	public final String fileName;
+	public final long size;
 
 	public File(String fileName, long size) {
 		this.fileName = fileName;
 		this.size = size;
 	}
 
-	public String getFileName() {
-		return fileName;
-	}
-
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
-
-	public long getSize() {
-		return size;
-	}
-
-	public void setSize(long size) {
-		this.size = size;
+	private File() {
+		fileName = Constants.UNKNOWN;
+		size = -1;
 	}
 
 	@Override
