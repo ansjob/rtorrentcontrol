@@ -1,12 +1,13 @@
 package se.tjugohundratalet.rtorrentcontrol.services;
 
 import java.util.List;
-import java.util.logging.Logger;
-import javax.print.attribute.standard.Media;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import se.tjugohundratalet.rtorrentcontrol.interfaces.TorrentClient;
 import se.tjugohundratalet.rtorrentcontrol.interfaces.TorrentSearcher;
@@ -21,9 +22,7 @@ import se.tjugohundratalet.rtorrentcontrol.logic.MockTorrentSearcher;
 @Path("/")
 public class Search {
 
-	Logger log = Logger.getLogger(Search.class.getName());
-
-	private TorrentClient client = new MockTorrentClient();
+	static final Logger log = LoggerFactory.getLogger(Search.class.getName());
 
 	private TorrentSearcher searcher = new MockTorrentSearcher();
 
@@ -31,7 +30,7 @@ public class Search {
     @Path("search/{query}")
 	@Produces("application/json")
     public List<SearchResult> search (@PathParam("query") String query) {
-        log.finest("Search query initiated for query " + query);
+        log.info("Searching for " + query);
 
 		SearchParameters params = new SearchParameters();
 		params.addParameter("query", query);
