@@ -15,38 +15,37 @@ public class Torrent {
 	private final String id;
 	private final String name;
 	private List<File> files;
+	private long uploadSpeed;
+	private long downloadSpeed;
 
-	public Torrent(String id, String name, List<File> files) {
+	public Torrent(String id, String name, List<File> files, long uploadSpeed, long downloadSpeed) {
 		this.id = id;
 		this.name = name;
 		this.files = files;
+		this.downloadSpeed = downloadSpeed;
+		this.uploadSpeed = uploadSpeed;
 	}
 
 	private Torrent() {
 		id = Constants.UNKNOWN;
 		name = Constants.UNKNOWN;
 		files = new ArrayList<File>();
+		uploadSpeed = -1;
+		downloadSpeed = -1;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
+		if (!(obj instanceof Torrent)) {
 			return false;
 		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		final Torrent other = (Torrent) obj;
-		if ((this.id == null) ? (other.id != null) : !this.id.equals(other.id)) {
-			return false;
-		}
-		if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name)) {
-			return false;
-		}
-		if (this.files != other.files && (this.files == null || !this.files.equals(other.files))) {
-			return false;
-		}
-		return true;
+		final Torrent t = (Torrent) obj;
+
+		return  t.downloadSpeed == downloadSpeed &&
+				t.files.equals(files) &&
+				t.id == id &&
+				t.name == name &&
+				t.uploadSpeed == uploadSpeed;
 	}
 
 
@@ -69,5 +68,15 @@ public class Torrent {
 	public List<File> getFiles() {
 		return Collections.unmodifiableList(files);
 	}
+
+	public long getDownloadSpeed() {
+		return downloadSpeed;
+	}
+
+	public long getUploadSpeed() {
+		return uploadSpeed;
+	}
+
+
 
 }

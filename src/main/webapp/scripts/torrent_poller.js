@@ -1,8 +1,9 @@
-define(["order!backbone", "order!namespace", "order!lib/backbone.poller"],
-	function(Backbone, namespace) {
+define(["order!namespace", "order!backbone" , "order!lib/backbone.poller"],
+	function(namespace) {
 
 		var app = namespace.app;
-		var INTERVAL = 250;
+
+		var INTERVAL = 2000;
 
 		var options = {
 			delay: INTERVAL

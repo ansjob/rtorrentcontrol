@@ -41,6 +41,6 @@ public class TorrentTest {
 	protected Torrent generateSample() {
 		File f = new File(".file", 1023);
 		List<File> files = Arrays.asList(f);
-		return new Torrent("some.id", "some.name", files);
+		return new Torrent("some.id", "some.name", files, 1024, 1024);
 	}
 }

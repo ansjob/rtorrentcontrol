@@ -1,7 +1,6 @@
 
 /* Load application config, and tests */
 define(['require_config'], function() {
-	/* Override default baseUrl */
 	require([
 		"order!scripts/lib/jasmine-1.2.0.rc3/jasmine.js",
 		"order!scripts/lib/jasmine-1.2.0.rc3/jasmine-html.js",

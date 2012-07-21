@@ -58,7 +58,7 @@ public class MockTorrentClient implements TorrentClient {
 		long size = 1024;
 		long completed = (long) (512 + (512 * Math.sin(System.currentTimeMillis() / 10)));
 		files.add(new IncompleteFile("file.txt", size, completed));
-		Torrent t = new Torrent("deadbeef", "Some.Show", files);
+		Torrent t = new Torrent("deadbeef", "Some.Show", files, 1024, 1024);
 		return Arrays.asList(t);
 	}
 
@@ -68,7 +68,7 @@ public class MockTorrentClient implements TorrentClient {
 
 		long size = 1024 * 1024 * 1024 * 8;
 		files.add(new File("junk.txt", size));
-		Torrent t = new Torrent("oldbeef", "Some.Junk", files);
+		Torrent t = new Torrent("oldbeef", "Some.Junk", files, 1024, 1024);
 
 		return Arrays.asList(t);
 	}

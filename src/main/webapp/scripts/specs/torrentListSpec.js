@@ -8,7 +8,7 @@ define(
 
 			var app = namespace.app;
 			var listView;
-			
+
 
 			beforeEach(function() {
 				listView = new TorrentsListView({
@@ -18,7 +18,7 @@ define(
 			});
 
 			var verifyLengthComparedToCollection = function() {
-				var lis = $(listView.el).find("li");
+				var lis = $(listView.el).find(".torrentInfo");
 				expect(lis.length).toEqual(sampleData.length);
 			};
 
@@ -26,17 +26,17 @@ define(
 				expect(typeof(listView.render)).toEqual("function");
 			});
 
-			it("has a ul of the same length as the model data", function() {
+			it("has a list of the same length as the model data", function() {
 				verifyLengthComparedToCollection();
 			});
-				
+
 			it("empties the list when the collection is emptied", function() {
 				sampleData.length = 0;
 				app.torrents.fetch();
 				verifyLengthComparedToCollection();
 			});
 
-			it("removes a li when the collection shrinks", function() {
+			it("removes a listItem when the collection shrinks", function() {
 				sampleData.pop();
 				app.torrents.fetch();
 				verifyLengthComparedToCollection();
@@ -45,7 +45,7 @@ define(
 			afterEach(function() {
 				listView.close();
 			});
-			
+
 
 		});
 	});

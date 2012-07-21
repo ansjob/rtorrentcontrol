@@ -1,6 +1,6 @@
-require( ['lib/order!require_config' ],
+require( ['require_config' ],
 	function() {
-		require(["lib/order!app", "lib/order!jquery", "lib/order!bootstrap", "lib/order!bootstrap-collapse"], function(App, $) {
+		require(["order!app", "order!jquery", "order!bootstrap", "order!bootstrap-collapse"], function(App, $) {
 			App.initialize();
 		})
 	}

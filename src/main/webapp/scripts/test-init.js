@@ -5,8 +5,9 @@ define([
 	"order!underscore",
 	"order!fake-ajax"],
 	function(App, namespace, $, _) {
-
-		App.initialize();
+		App.initialize({
+			startPoller: false
+		});
 
 		n = namespace;
 

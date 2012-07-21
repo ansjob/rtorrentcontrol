@@ -8,7 +8,6 @@ define([], function() {
 			'transitions'			: 'plugin/bootstrap-transition',
 			'collapse'				: 'plugin/bootstrap-collapse',
 			'backbone'				: 'lib/backbone-min',
-			'underscore'			: 'lib/underscore-min',
 			'bootstrap'				: 'lib/bootstrap.min',
 			'bootstrap-collapse'	: 'lib/plugin/bootstrap-collapse',
 			'text'					: 'lib/text',

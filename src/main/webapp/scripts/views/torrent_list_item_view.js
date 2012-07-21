@@ -1,17 +1,19 @@
-define(['marionette' ,'mustache', 
+define(['marionette' ,'mustache',
 	'text!../../templates/torrent_list_item_view.html'], function(Marionette, Mustache,template) {
 
 
 		var TorrentListViewItem = Marionette.ItemView.extend({
 
-			tagName: "li",
+			tagName: "div",
 
 			initialize: function() {
 				_.bindAll(this, "render", "remove", "log");
 			},
 
 			render: function() {
-				var output = Mustache.render(template);
+				var output = Mustache.render(template, this.model.toJSON());
+				x = this.model.toJSON();
+				$(this.el).addClass("span2").addClass("torrentInfo");
 				$(this.el).html(output);
 			},
 

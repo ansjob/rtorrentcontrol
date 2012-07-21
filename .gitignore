@@ -4,3 +4,4 @@ target/
 .project
 .settings
 nbactions.xml
+*.db

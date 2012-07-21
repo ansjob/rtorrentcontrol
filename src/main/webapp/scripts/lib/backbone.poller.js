@@ -2,15 +2,15 @@
 // Backbone Poller may be freely distributed under the MIT license.
 
 !function(ns, _, Backbone){
-    
+
     "use strict";
-    
+
     var defaults = {
         delay: 1000,
         condition: function(){return true;}
     };
     var eventTypes = ['start', 'stop', 'success', 'error', 'complete', 'fetch'];
-    
+
     /**
      * Poller
      */
@@ -21,18 +21,18 @@
         set: function(model, options) {
             this.model = model;
             this.options = _.extend(_.clone(defaults), options || {});
-            
+
             _.each(eventTypes, function(eventName){
                 var handler = this.options[eventName];
                 if(typeof handler === 'function') {
                     this.on(eventName, handler, this);
                 }
             }, this);
-            
+
             if ( this.model instanceof Backbone.Model ) {
                 this.model.on('destroy', this.stop, this);
             }
-            
+
             return this.stop({silent: true});
         },
         start: function(options){
@@ -64,7 +64,7 @@
             return this.options.active === true;
         }
     });
-    
+
     // private methods
     function run(poller) {
         if ( poller.active() !== true ) {
@@ -90,12 +90,12 @@
         poller.trigger('fetch');
         poller.xhr = poller.model.fetch(options);
     }
-    
+
     /**
      * Polling Manager
      */
     var pollers = [];
-    
+
     var PollingManager = {
         find: function(model) {
             return _.find(pollers, function(poller){
@@ -121,7 +121,7 @@
             return pollers.length;
         }
     };
-    
+
     ns.PollingManager = PollingManager;
-    
+
 }(this, window._, window.Backbone);

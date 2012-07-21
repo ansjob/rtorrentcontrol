@@ -1,12 +1,13 @@
 package se.tjugohundratalet.rtorrentcontrol.services;
 import java.net.URL;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import se.tjugohundratalet.rtorrentcontrol.interfaces.TorrentClient;
 import se.tjugohundratalet.rtorrentcontrol.logic.VoidTorrentClient;
 import se.tjugohundratalet.rtorrentcontrol.models.Torrent;
@@ -21,7 +22,7 @@ public class TorrentsResource {
 	@Context
 	ServletContext servletCtx;
 
-	private Logger log = Logger.getLogger(TorrentsResource.class.getName());
+	private Logger log = LoggerFactory.getLogger(TorrentsResource.class.getName());
 
 	TorrentClient client;
 	@GET
@@ -49,8 +50,7 @@ public class TorrentsResource {
 			Class<TorrentClient> clazz = (Class<TorrentClient>) Class.forName(className);
 			return clazz.newInstance();
 		} catch (Exception ex) {
-			log.severe("Caught throwable when getting TorrentClient implementation");
-			ex.printStackTrace();
+			log.error("Caught throwable when getting TorrentClient implementation", ex);
 			return new VoidTorrentClient();
 		}
 	}

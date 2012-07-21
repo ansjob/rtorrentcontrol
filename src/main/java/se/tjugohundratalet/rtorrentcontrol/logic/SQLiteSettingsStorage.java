@@ -9,10 +9,7 @@ import se.tjugohundratalet.rtorrentcontrol.exceptions.SettingNotFoundException;
 import se.tjugohundratalet.rtorrentcontrol.interfaces.SettingsStorage;
 import se.tjugohundratalet.rtorrentcontrol.models.Setting;
 
-/**
- *
- * @author ansjob
- */
+
 public class SQLiteSettingsStorage implements SettingsStorage {
 
 	public SQLiteSettingsStorage() {
