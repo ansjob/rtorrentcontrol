@@ -38,9 +38,11 @@ public class TorrentTest {
 		t1.getFiles().add(new File(".file2", 128));
 	}
 
+	private static final int ONE_GIG = 1 << 30;
+
 	protected Torrent generateSample() {
 		File f = new File(".file", 1023);
 		List<File> files = Arrays.asList(f);
-		return new Torrent("some.id", "some.name", files, 1024, 1024);
+		return new Torrent("some.id", "some.name", files, 1024, 1024, ONE_GIG, ONE_GIG);
 	}
 }

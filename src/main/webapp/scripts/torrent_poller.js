@@ -3,7 +3,7 @@ define(["order!namespace", "order!backbone" , "order!lib/backbone.poller"],
 
 		var app = namespace.app;
 
-		var INTERVAL = 2000;
+		var INTERVAL = 1000;
 
 		var options = {
 			delay: INTERVAL

@@ -18,7 +18,7 @@ define(
 			});
 
 			var verifyLengthComparedToCollection = function() {
-				var lis = $(listView.el).find(".torrentInfo");
+				var lis = $(listView.el).find(".island");
 				expect(lis.length).toEqual(sampleData.length);
 			};
 

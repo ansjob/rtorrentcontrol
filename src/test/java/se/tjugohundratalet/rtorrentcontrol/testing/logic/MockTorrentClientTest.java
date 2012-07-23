@@ -56,9 +56,10 @@ public class MockTorrentClientTest {
 	}
 
 	@Test
-	public void hasTwoTorrentsInTotal() {
+	public void hasCorrectNumberOfTorrentsInTotal() {
 		List<Torrent> allTorrents = client.getAllTorrents();
-		assertEquals("should be two elements", 2, allTorrents.size());
+		int expectedTotal =  MockTorrentClient.NUM_DOWNLOADING + MockTorrentClient.NUM_SEEDING;
+		assertEquals("should be " + expectedTotal + " elements", expectedTotal, allTorrents.size());
 	}
 
 	@Test

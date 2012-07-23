@@ -21,6 +21,10 @@ public class File {
 		size = -1;
 	}
 
+	public long getCompletedBytes() {
+		return size;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null) {

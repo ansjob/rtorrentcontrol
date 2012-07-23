@@ -1,19 +1,19 @@
-<strong>{{name}}</strong>
-<p>
-	<span class="left">{{downloadSpeed}}</span>
-	<span class="right">{{uploadSpeed}}</span>
-</p>
-<table>
+<table style="width:100%;">
 	<tr>
-		<th>Status:</th>
-		<td>{{status}}</td>
+		<td class="left">
+			<i class="icon-arrow-down"></i>{{downloadSpeed}}/s
+		</td>
+		<td class="right">
+			<i class="icon-arrow-up"></i>{{uploadSpeed}}/s
+		</td>
 	</tr>
 	<tr>
-		<th>Seeders:</th>
-		<td>{{seeders}}</td>
-	</tr>
-	<tr>
-		<th>Uploaded:</th>
-		<td>{{downloaded}}</td>
+		<td colspan ="2">
+			<div class="progress">
+				<div class="bar" style="width: {{completed}}%;">{{completed}}%</div>
+			</div>
+		</td>
 	</tr>
 </table>
+
+

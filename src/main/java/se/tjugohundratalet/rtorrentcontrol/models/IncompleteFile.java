@@ -13,6 +13,7 @@ public class IncompleteFile extends File {
 		this.completedBytes = completedBytes;
 	}
 
+	@Override
 	public long getCompletedBytes() {
 		return completedBytes;
 	}
