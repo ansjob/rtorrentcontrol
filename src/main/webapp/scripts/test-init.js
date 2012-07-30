@@ -1,17 +1,16 @@
 define([
-	"app",
-	"namespace",
+	"order!namespace",
 	"order!jquery",
 	"order!underscore",
-	"order!fake-ajax"],
-	function(App, namespace, $, _) {
-		App.initialize({
-			startPoller: false
-		});
+	"order!fake-ajax",
+	],
+	function(namespace, $, _) {
 
 		n = namespace;
 
-		var setupFakeHttp = function() {
+		setupFakeHttp = function() {
+
+
 			/* Global variable that gets reset before every test*/
 			sampleData = [{
 				id: "1234",
@@ -27,14 +26,26 @@ define([
 				fileNames:["film.avi", "sample.mkv"]
 			}];
 
-			registerFakeAjax({
-				url : "api/torrents",
-				successData : sampleData,
+			sampleServerSettings = [{
+				type: "string",
+				key: "setting1",
+				description: "Some sample setting",
+				value : "hello world"
+			}];
+
+			fakeAjax({
+				registrations: [
+				{
+					url : "api/torrents",
+					successData : sampleData,
+				},
+				{
+					url : "api/settings/server",
+					successData : sampleServerSettings
+				}
+				]
 			});
+
 		};
-		beforeEach(function() {
-			setupFakeHttp();
-			namespace.app.torrents.fetch();
-			namespace.app.router.navigate("");
-		});
+
 	});

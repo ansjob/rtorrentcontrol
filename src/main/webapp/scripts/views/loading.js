@@ -12,6 +12,7 @@ define([
 
 		var LoadingView = Marionette.ItemView.extend({
 			render: function() {
+				this.log("rendering...");
 				var data = this.model;
 				var output = Mustache.render(loadingTemplate, {
 					title: data.title,

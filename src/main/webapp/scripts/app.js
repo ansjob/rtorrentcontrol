@@ -2,45 +2,79 @@ define([
 	"marionette",
 	"namespace",
 	"collections/torrents",
+	"collections/server_settings",
 	"layouts/default",
-	"torrent_poller"
+	"router",
+	"underscore"
 	],
-	function(Marionette, namespace, TorrentCollection, DefaultLayout, Poller){
+	function(
+		Marionette,
+		namespace,
+		TorrentCollection,
+		ServerSettingsCollection,
+		DefaultLayout,
+		Router,
+		_){
 
 		var APP_DEBUG = true;
 
 		var debug = function(msg) {
 			if (APP_DEBUG) {
-				console.log(msg);
+				console.log("[APP] " + msg);
 			}
 		}
 
-		var initialize = function(opts){
-			opts = opts ? opts : {};
+		var initialize = function(){
 
-			debug("App initializing!");
+			debug("initializing!");
 
-			TorrentCollection.initialize();
+			var torrents = new TorrentCollection();
+			var rootLayout = new DefaultLayout();
+			var serverSettings = new ServerSettingsCollection();
 
-			namespace.rootLayout = new DefaultLayout();
+			rootLayout.render();
 
-			namespace.rootLayout.render();
-
-			namespace.app.vent = new Marionette.EventAggregator();
-
-			namespace.poller = new Poller();
-			if (opts.startPoller === undefined || opts.startPoller){
-				debug("Starting poller...");
-				namespace.poller.start();
+			collections = {
+				torrents: torrents,
+				serverSettings : serverSettings
 			}
 
-			require(["router"], function(Router) {
-				Router.initialize();
+			namespace.vent = new Marionette.EventAggregator();
+
+			var routerOpts = {
+				collections : collections,
+				rootLayout: rootLayout,
+				serverSettings: serverSettings
+			};
+
+			var router = new Router(routerOpts);
+
+			namespace.vent.bind("startApp", function() {
+				debug("starting...")
+				_.forEach(collections, function(collection) {
+					var poller = PollingManager.getPoller(collection);
+					poller.on("error", function(results) {
+						namespace.vent.trigger("fetchError", results);
+					});
+					poller.start();
+				});
+				router.start();
 			});
 
+			namespace.vent.bind("shutdownApp", function() {
+				debug("stopping...")
+				_.forEach(collections, function(collection) {
+					var poller = PollingManager.getPoller(collection);
+					poller.stop();
+				});
+				router.shutdown();
+			});
 
+			namespace.vent.trigger("startApp");
 		};
-		return {
-			initialize	: initialize
+
+		var App = {
+			initialize	: initialize,
 		};
+		return App;
 	});

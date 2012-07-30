@@ -20,9 +20,9 @@ public class TorrentsResource {
 
 
 	@Context
-	ServletContext servletCtx;
+	private ServletContext servletCtxt;
 
-	private Logger log = LoggerFactory.getLogger(TorrentsResource.class.getName());
+	private Logger log = LoggerFactory.getLogger(TorrentsResource.class);
 
 	TorrentClient client;
 	@GET
@@ -39,13 +39,13 @@ public class TorrentsResource {
 	}
 
 	@PostConstruct
-	private void fetchTorrentClient() {
+	public void fetchTorrentClient() {
 		client = getClient();
 	}
 
 	private TorrentClient getClient() {
 		try {
-			String className = servletCtx.getInitParameter("se.tjugohundratalet.rtorrentcontrol.torrentClientClass");
+			String className = servletCtxt.getInitParameter("se.tjugohundratalet.rtorrentcontrol.torrentClientClass");
 			log.info("TorrentClient class name loaded: " + className);
 			Class<TorrentClient> clazz = (Class<TorrentClient>) Class.forName(className);
 			return clazz.newInstance();

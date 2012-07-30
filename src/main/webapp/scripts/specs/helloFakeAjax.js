@@ -29,5 +29,13 @@ define([ 'order!jquery', 'order!underscore', 'order!fake-ajax' ],
 					})
 					expect(message).toEqual('Hello World!')
 				});
+
+				it("can use the sample torrent url", function() {
+					var data;
+					$.get("api/torrents", function(result) {
+						data = result;
+					})
+					expect(data.length).toEqual(sampleData.length);
+				});
 			});
 		});

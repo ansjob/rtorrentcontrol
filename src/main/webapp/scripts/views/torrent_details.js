@@ -11,7 +11,6 @@ define([
 		) {
 
 		var DEBUG = false;
-		var app = namespace.app;
 
 		var TorrentDetails = Marionette.ItemView.extend({
 
@@ -19,9 +18,6 @@ define([
 				this.model.view = this;
 				var that = this;
 				this.model.bind("change", function() {
-					that.render();
-				});
-				app.torrents.bind("reset", function() {
 					that.render();
 				});
 			},
@@ -33,13 +29,12 @@ define([
 						id: torrent.get('id'),
 						name: torrent.get('name')
 					});
-				$(torrent.view.el).html(output);
+				$(this.el).html(output);
 			},
 
 			onClose: function() {
 				this.model.unbind("change", null, this);
 				delete(this.model.view);
-				app.torrents.unbind("reset", null, this);
 				this.log("closing!");
 			},
 

@@ -1,39 +1,42 @@
 define(
 	[
-	'namespace',
-	'jquery'
+	'collections/torrents'
 	],
-	function(namespace, $)
+	function(TorrentCollection)
 	{
-		var app = namespace.app;
-
-
 
 		describe("TorrentCollection", function() {
 
+			var collection;
+
 			var emptyCollection = function() {
 				sampleData.length = 0;
-				app.torrents.fetch();
+				collection.fetch();
 			}
 
+			beforeEach(function() {
+				collection = new TorrentCollection();
+				collection.fetch();
+			})
+
 			it("loads the test elements elements", function(){
-				expect(app.torrents.length).toEqual(sampleData.length);
+				expect(collection.length).toEqual(sampleData.length);
 			});
 
 			it("removes models when they are removed from the server", function() {
 				emptyCollection();
-				expect(app.torrents.length).toEqual(0);
+				expect(collection.length).toEqual(0);
 			});
 
 			it("calls methods bound to the models when removing them", function() {
-				var model = app.torrents.at(0);
+				var model = collection.at(0);
 
 				var SomeClass = function(){};
 				SomeClass.prototype.callback = function() {};
 				spyOn(SomeClass.prototype, 'callback');
 
 				model.bind("remove", SomeClass.prototype.callback);
-				app.torrents.remove(model);
+				collection.remove(model);
 
 				expect(SomeClass.prototype.callback).toHaveBeenCalled();
 			});
@@ -45,8 +48,8 @@ define(
 					sizeInBytes: 1024*1024,
 					fileNames: "song.ogg"
 				});
-				app.torrents.fetch();
-				expect(app.torrents.length).toEqual(3);
+				collection.fetch();
+				expect(collection.length).toEqual(3);
 			});
 
 		});

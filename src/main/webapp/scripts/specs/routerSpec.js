@@ -2,72 +2,85 @@ define(
 	[
 	'router',
 	'views/torrents_list',
+	'collections/torrents',
 	'views/torrent_details',
 	'views/settings',
 	'views/error',
 	'views/loading',
-	'namespace'
+	'layouts/default',
+	'collections/server_settings'
 	],
-	function(Router,
+	function(
+		Router,
 		TorrentsList,
+		TorrentCollection,
 		TorrentDetailsView,
 		SettingsView,
 		ErrorView,
 		LoadingView,
-		namespace)
+		DefaultLayout,
+		ServerSettingsCollection
+		)
 		{
-
-		var app = namespace.app;
-
-		beforeEach(function() {
-			try {
-				Router.initialize();
-			} catch(e) {}
-			namespace.app.router.navigate("", true);
-		});
 		describe("Router", function() {
 
-			it("has a property initialize", function() {
-				expect(Router.initialize).toBeDefined();
+
+			var router;
+			var rootLayout = new DefaultLayout();
+			rootLayout.render();
+
+			beforeEach(function() {
+				var routerOpts = {
+					rootLayout : rootLayout,
+					collections: {
+						torrents: new TorrentCollection(),
+						serverSettings: new ServerSettingsCollection()
+					}
+				};
+				router = new Router(routerOpts);
+				router.start();
+				router.navigate("", true);
+			});
+
+			afterEach(function() {
+				router.shutdown();
 			});
 
 			it("calls TorrentList.render when the url is #torrents", function() {
-				namespace.app.router.navigate("settings", true);
+				router.navigate("settings", true);
 				spyOn(TorrentsList.prototype, 'render');
-				namespace.app.router.navigate("torrents", true);
+				router.navigate("torrents", true);
 				expect(TorrentsList.prototype.render).toHaveBeenCalled();
 			});
 
 			it("calls TorrentList.render when the url is #torrents/", function() {
 				spyOn(TorrentsList.prototype, 'render');
-				namespace.app.router.navigate("torrents/", true);
+				router.navigate("torrents/", true);
 				expect(TorrentsList.prototype.render).toHaveBeenCalled();
 			});
 
-
 			it("calls TorrentDetails.render when the url is #torrents/1234", function() {
-				namespace.app.router.navigate("", true);
 				spyOn(TorrentDetailsView.prototype, 'render');
-				namespace.app.router.navigate("torrents/1234", true);
+				router.navigate("torrents/1234", true);
 				expect(TorrentDetailsView.prototype.render).toHaveBeenCalled();
 			});
 
 			it("calls SettingsView.render() when url is #settings", function() {
 				spyOn(SettingsView.prototype, 'render');
-				namespace.app.router.navigate("settings", true);
+				router.navigate("settings", true);
 				expect(SettingsView.prototype.render).toHaveBeenCalled();
 			});
 
 			it("calls SettingsView.render() when url is #settings/", function() {
-				namespace.app.router.navigate("", true);
+				router.navigate("", true);
 				spyOn(SettingsView.prototype, 'render');
-				namespace.app.router.navigate("settings/", true);
+				router.navigate("settings/", true);
 				expect(SettingsView.prototype.render).toHaveBeenCalled();
 			});
 
 			it("calls ErrorView.render() when a weird-looking url is entered", function() {
 				spyOn(ErrorView.prototype, 'render');
-				app.router.navigate("someWeirdUrl", true);
+				router.navigate("someWeirdUrl", true);
 				expect(ErrorView.prototype.render).toHaveBeenCalled();
 			});
 
@@ -86,43 +99,56 @@ define(
 					addNewTorrentToServer();
 				});
 
-				it("calls fetch() on the collection", function() {
-					spyOn(app.torrents, 'fetch');
-					app.router.viewTorrent("3456");
-					expect(app.torrents.fetch).toHaveBeenCalled();
-				});
-
-				it("displays a loadingMessage while the collection is fetched", function() {
-					spyOn(LoadingView.prototype, 'render');
-					app.router.viewTorrent("3456");
-					expect(LoadingView.prototype.render).toHaveBeenCalled();
-				});
-
-				it("hides the loading message afterwards", function() {
-					spyOn(LoadingView.prototype, 'onClose');
-					app.router.viewTorrent("3456");
-					expect(LoadingView.prototype.onClose).toHaveBeenCalled();
-				});
-
 				it("shows an error message if there is a connection error", function() {
 					spyOn(ErrorView.prototype, 'render');
 					jasmine.FakeAjax.clearContext();
 					fakeAjax({
 						registrations: [
-							{url: "api/torrents", errorMessage: "Some error occurred"}
+						{
+							url: "api/torrents",
+							errorMessage: "Some error occurred"
+						}
 						]
 					});
-					app.router.viewTorrent("3456");
+					router.navigate("torrents/3456", {
+						trigger: true
+					});
 					expect(ErrorView.prototype.render).toHaveBeenCalled();
 				});
 
 				it("shows an error message if the torrent was not found", function() {
 					spyOn(ErrorView.prototype, 'render');
-					app.router.viewTorrent("non-existant");
+					router.navigate("non-existant", {
+						trigger: true
+					});
 					expect(ErrorView.prototype.render).toHaveBeenCalled();
 				});
-			});
 
+				it("calls fetch() on the collection", function() {
+					spyOn(router.collections.torrents, 'fetch');
+					router.navigate("torrents/3456", {
+						trigger: true
+					});
+					expect(router.collections.torrents.fetch).toHaveBeenCalled();
+				});
+
+				it("hides the loading message afterwards", function() {
+					spyOn(LoadingView.prototype, 'onClose');
+					router.navigate("torrents/3456", {
+						trigger: true
+					});
+					expect(LoadingView.prototype.onClose).toHaveBeenCalled();
+				});
+
+				it("displays a loading message while the collection is fetched", function() {
+					spyOn(LoadingView.prototype, 'render');
+					router.navigate("torrents/3456", {
+						trigger: true
+					});
+					expect(LoadingView.prototype.render).toHaveBeenCalled();
+				});
+
+			});
 
 		});
 	});

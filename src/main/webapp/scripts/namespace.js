@@ -5,9 +5,9 @@ define([
   "backbone"
 ],
 function($, _, Backbone) {
-	
+
 	// Put application wide code here
-	return {
+	namespace = {
 		// Create a custom object with a nested Views object
 		module: function(additionalProps) {
 			return _.extend({ Views: {} }, additionalProps);
@@ -15,4 +15,6 @@ function($, _, Backbone) {
 		// Keep active application instances namespaced under an app object.
 		app: _.extend({}, Backbone.Events),
 	};
+
+	return namespace;
 });

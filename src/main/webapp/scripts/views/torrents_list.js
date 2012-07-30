@@ -3,7 +3,10 @@ define([
 	'underscore',
 	'jquery',
 	'views/torrent_list_item_view',
-	],function(Marionette, _, $,
+	'order!backbone',
+	'order!lib/backbone.poller'
+	],function(
+		Marionette, _, $,
 		TorrentListItemView) {
 
 		var TorrentsList= Marionette.CollectionView.extend({
@@ -12,21 +15,27 @@ define([
 
 			itemView: TorrentListItemView,
 
+			initialize: function(opts) {
+				opts = opts || {};
+				_.bindAll(this, "render");
+				this.collection = opts.collection;
+			},
+
 			beforeRender: function() {
-				this.log("before render there are " + this.collection.length + " items");
 				$(this.el).html('');
 			},
 
-			afterRender: function() {
-				$(this.el).addClass("row");
+			onClose: function() {
+				this.log("closing...");
 			},
 
-			log : function(msg) {
+			log: function(msg) {
 				if (this.DEBUG)
 					console.log("[TORRENT LIST] " + msg);
 			}
 		});
 		TorrentsList.prototype.DEBUG = false;
+
 		return TorrentsList;
 
 	});

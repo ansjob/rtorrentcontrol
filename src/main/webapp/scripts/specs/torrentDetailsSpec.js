@@ -1,19 +1,18 @@
 define(
 	[
 	'views/torrent_details',
-	'namespace'
+	'collections/torrents'
 	],
-	function(TorrentDetailsView, namespace)
+	function(TorrentDetailsView, TorrentCollection)
 	{
 		describe("TorrentDetails", function() {
 
-			var app = namespace.app;
-			var TorrentView;
-			var el;
-			var model;
+			var TorrentView, el, model, collection;
 
 			beforeEach(function() {
-				model = app.torrents.get("1234");
+				collection = new TorrentCollection();
+				collection.fetch();
+				model = collection.get("1234");
 				TorrentView = new TorrentDetailsView({
 					model: model
 				});
@@ -46,24 +45,8 @@ define(
 				expect(TorrentView.render).not.toHaveBeenCalled();
 			});
 
-
-			it("updates when fetch is called", function() {
-				var globalModel = app.torrents.get("1234");
-				var localView = new TorrentDetailsView({
-					model: globalModel
-				});
-				localView.render();
-
-				spyOn(localView,'render');
-
-				sampleData[0].name = "hello";
-				app.torrents.fetch();
-
-				expect(localView.render).toHaveBeenCalled();
-			});
-
 			it("unbinds when closed from fetch() updates", function() {
-				var globalModel = app.torrents.get("1234");
+				var globalModel = collection.get("1234");
 				var localView = new TorrentDetailsView({
 					model: globalModel
 				});
@@ -73,7 +56,7 @@ define(
 
 				sampleData[0].name = "hello";
 				localView.onClose();
-				app.torrents.fetch();
+				collection.fetch();
 
 				expect(localView.render).not.toHaveBeenCalled();
 			});

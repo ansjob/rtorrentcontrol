@@ -1,15 +1,13 @@
 define([
-	'namespace',
 	'jquery',
 	'marionette',
 	'underscore',
 	'mustache',
 	//Templates:
 	'text!../../templates/errorMessage.html'
-	],function(namespace, $, Marionette, _, Mustache,
+	],function($, Marionette, _, Mustache,
 		errorTemplate) {
 
-		var app = namespace.app;
 
 		var ErrorView = Marionette.ItemView.extend({
 			render: function() {
