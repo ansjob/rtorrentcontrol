@@ -15,7 +15,6 @@ define([
 		var TorrentDetails = Marionette.ItemView.extend({
 
 			initialize: function() {
-				this.model.view = this;
 				var that = this;
 				this.model.bind("change", function() {
 					that.render();

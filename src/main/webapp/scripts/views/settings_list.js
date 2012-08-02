@@ -22,27 +22,12 @@ define([
 			}
 		});
 
-		var ServerSettingDetailsView = SettingDetailsView.extend({
-
-			initialize: function() {
-				_.bindAll(this, "save");
-			},
-
-			save: function() {
-				this.model.save();
-			}
-		});
-
-		var ClientSettingDetailsView = SettingDetailsView.extend({
-			//TODO
-		});
-
 		var ServerSettingsList = SettingsList.extend({
-			itemView: ServerSettingDetailsView
+			itemView: SettingDetailsView.serversettings
 		});
 
 		var ClientSettingsList = SettingsList.extend({
-			itemView: ClientSettingDetailsView
+			itemView: SettingDetailsView.clientsettings
 		});
 
 		return {

@@ -40,6 +40,7 @@ define([
 					successData : sampleData,
 				},
 				{
+					type: 'get',
 					url : "api/settings/server",
 					successData : sampleServerSettings
 				}

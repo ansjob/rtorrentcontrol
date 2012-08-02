@@ -75,7 +75,7 @@ define([
 				});
 			},
 
-			DEBUG: true,
+			DEBUG: false,
 
 			log: function(msg) {
 				if (this.DEBUG) {

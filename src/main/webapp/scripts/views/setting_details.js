@@ -10,14 +10,14 @@ define([
 		var SettingDetails = Marionette.ItemView.extend({
 
 			initialize: function() {
-				_.bindAll(this, "value");
+				_.bindAll(this, "value", "save","saveSuccess", "saveError");
 			},
 
 			tagName: "div",
 
 			render: function() {
-				var input = this.model.toJSON();
-				var output = Mustache.render(template, input);
+				var asJSON = this.model.toJSON();
+				var output = Mustache.render(template, asJSON);
 				$(this.el).html(output);
 				this.editor = this.getEditor();
 				this.saveBtn = this.getSaveButton();
@@ -36,7 +36,7 @@ define([
 						var key = this.model.get("key");
 						var val = this.model.get("val");
 						$(el).attr("name", key);
-						$(el).attr("value", val);
+						$(el).val(val);
 						return el;
 						break;
 				}
@@ -66,8 +66,56 @@ define([
 				namespace.vent.trigger("warning", {
 					message: "Unknown setting type: " + settingType
 				});
+			},
+
+			save: function() {
+				this.showLoadingView();
+				this.model.save(this.model.toJSON(), {
+					success: this.saveSuccess,
+					error: this.saveError
+				});
+			},
+
+			saveError: function(model, response) {
+				this.hideAllMessages();
+				this.showErrorMessage(response);
+			},
+
+			showErrorMessage: function(error) {
+				var errorNode = $(this.el).find(".msgcontainer").find(".saveError");
+				$(errorNode).html(error.statusText);
+				$(errorNode).show();
+			},
+
+			saveSuccess: function() {
+				this.hideAllMessages();
+				this.showSuccessMessage();
+			},
+
+			showSuccessMessage: function() {
+				$(this.el).find(".msgcontainer").find(".saveSuccess").show();
+			},
+
+			hideAllMessages: function() {
+				$(this.el).find(".msgcontainer").children().hide();
+			},
+
+			showLoadingView: function() {
+				$(this.el).find(".msgcontainer").find(".loading").show();
 			}
 		});
 
-		return SettingDetails;
+		var ServerSettingDetailsView = SettingDetails.extend({
+
+			});
+
+		var ClientSettingDetailsView = SettingDetails.extend({
+
+			});
+
+		return {
+			base: SettingDetails,
+			serversettings: ServerSettingDetailsView,
+			clientsettings: ClientSettingDetailsView
+		};
 	});

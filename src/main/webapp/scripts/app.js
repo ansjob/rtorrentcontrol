@@ -39,8 +39,6 @@ define([
 				serverSettings : serverSettings
 			}
 
-			namespace.vent = new Marionette.EventAggregator();
-
 			var routerOpts = {
 				collections : collections,
 				rootLayout: rootLayout,

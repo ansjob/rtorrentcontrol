@@ -15,7 +15,8 @@ define(['require_config'], function() {
 		"order!specs/errorMessageSpec",
 		"order!specs/torrentCollectionSpec",
 		"order!specs/islandSpec",
-		"order!specs/settingsViewSpec"
+		"order!specs/settingsViewSpec",
+		"order!specs/settingViewSpec"
 		], function() {
 
 			/* Then run tests */

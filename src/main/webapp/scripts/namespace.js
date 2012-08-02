@@ -2,9 +2,10 @@ define([
   // Libs
   "jquery",
   "underscore",
-  "backbone"
+  "backbone",
+  "marionette"
 ],
-function($, _, Backbone) {
+function($, _, Backbone, Marionette) {
 
 	// Put application wide code here
 	namespace = {
@@ -14,6 +15,7 @@ function($, _, Backbone) {
 		},
 		// Keep active application instances namespaced under an app object.
 		app: _.extend({}, Backbone.Events),
+		vent: new Marionette.EventAggregator()
 	};
 
 	return namespace;

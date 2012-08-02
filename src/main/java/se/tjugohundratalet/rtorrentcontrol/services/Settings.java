@@ -2,10 +2,8 @@ package se.tjugohundratalet.rtorrentcontrol.services;
 
 import java.util.Arrays;
 import java.util.List;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import se.tjugohundratalet.rtorrentcontrol.models.Setting;
@@ -21,6 +19,7 @@ public class Settings {
 
 	@Path("server")
 	@GET
+	@Produces(MediaType.APPLICATION_JSON)
 	public List<Setting> getServerSettings() {
 		return Arrays.asList(new Setting("setting1", "Some value", "This is an example setting"),
 				new Setting("setting2", "Some other value", "This is the second setting"));
