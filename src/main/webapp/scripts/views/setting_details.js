@@ -4,7 +4,7 @@ define([
 	"jquery",
 	"underscore",
 	"mustache",
-	"text!../../templates/setting_details.html"
+	"text!../../templates/setting_details.html",
 	],
 	function(namespace, Marionette, $, _, Mustache, template) {
 		var SettingDetails = Marionette.ItemView.extend({
@@ -37,6 +37,7 @@ define([
 						var val = this.model.get("val");
 						$(el).attr("name", key);
 						$(el).val(val);
+						el.getValue = function() {return $(this).val(); };
 						return el;
 						break;
 				}
@@ -51,7 +52,6 @@ define([
 						return $(this.editor).val();
 						break;
 				};
-				return "unknown";
 			},
 
 			getSaveButton: function() {
@@ -69,8 +69,14 @@ define([
 			},
 
 			save: function() {
+				if ($(this.saveBtn).attr("disabled"))
+					return;
+
 				this.showLoadingView();
-				this.model.save(this.model.toJSON(), {
+				this.savingVals = this.model.toJSON();
+				this.savingVals.val = this.editor.getValue();
+				this.disableSaveBtn();
+				this.model.save(this.savingVals, {
 					success: this.saveSuccess,
 					error: this.saveError
 				});
@@ -78,6 +84,7 @@ define([
 
 			saveError: function(model, response) {
 				this.hideAllMessages();
+				this.enableSaveBtn();
 				this.showErrorMessage(response);
 			},
 
@@ -88,8 +95,14 @@ define([
 			},
 
 			saveSuccess: function() {
+				this.model.set("val", this.savingVals.val);
+				this.enableSaveBtn();
 				this.hideAllMessages();
 				this.showSuccessMessage();
+				var successMsg = $(this.el).find(".msgcontainer").find(".saveSuccess");
+				setTimeout(function() {
+					$(successMsg).fadeOut(250);
+				}, 750);
 			},
 
 			showSuccessMessage: function() {
@@ -102,7 +115,15 @@ define([
 
 			showLoadingView: function() {
 				$(this.el).find(".msgcontainer").find(".loading").show();
-			}
+			},
+
+			enableSaveBtn: function() {
+				$(this.saveBtn).attr("disabled", false);
+			},
+
+			disableSaveBtn: function() {
+				$(this.saveBtn).attr("disabled", true);
+			},
 		});
 
 		var ServerSettingDetailsView = SettingDetails.extend({

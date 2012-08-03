@@ -16,27 +16,29 @@ define(['require_config'], function() {
 		"order!specs/torrentCollectionSpec",
 		"order!specs/islandSpec",
 		"order!specs/settingsViewSpec",
-		"order!specs/settingViewSpec"
+		"order!specs/settingViewSpec",
 		], function() {
 
 			/* Then run tests */
-		var jasmineEnv = jasmine.getEnv();
-		jasmineEnv.updateInterval = 1000;
+			var jasmineEnv = jasmine.getEnv();
+			jasmineEnv.updateInterval = 1000;
 
-		var trivialReporter = new jasmine.TrivialReporter();
+			var trivialReporter = new jasmine.TrivialReporter();
 
-		jasmineEnv.addReporter(trivialReporter);
+			jasmine.Clock.useMock();
 
-		jasmineEnv.specFilter = function(spec) {
-			return trivialReporter.specFilter(spec);
-		};
+			jasmineEnv.addReporter(trivialReporter);
 
-		beforeEach(function() {
-			setupFakeHttp();
+			jasmineEnv.specFilter = function(spec) {
+				return trivialReporter.specFilter(spec);
+			};
+
+			beforeEach(function() {
+				setupFakeHttp();
+			});
+
+			jasmineEnv.execute();
+
 		});
-
-		jasmineEnv.execute();
-
-	});
 
 });

@@ -97,12 +97,14 @@ public class SQLiteSettingsStorage implements SettingsStorage {
 
 	private Setting getDoubleSetting(String key) {
 		Setting raw = getRawSetting(key);
-		return raw.setValue(Double.parseDouble(raw.getVal().toString()));
+		raw.setValue(Double.parseDouble(raw.getVal().toString()));
+		return raw;
 	}
 
 	private Setting getIntegerSetting(String key) {
 		Setting raw = getRawSetting(key);
-		return raw.setValue(Integer.parseInt(raw.getVal().toString()));
+		raw.setValue(Integer.parseInt(raw.getVal().toString()));
+		return raw;
 	}
 
 	private Setting getRawSetting(String key) {

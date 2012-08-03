@@ -1,14 +1,17 @@
 package se.tjugohundratalet.rtorrentcontrol.models;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Immutable class for setting value
  * @author ansjob
  */
+@XmlRootElement
 public class Setting {
 
-	private final String key;
-	private final String description;
-	private final Object val;
+	private String key;
+	private String description;
+	private Object val;
 
 	public Setting(String key, Object val, String desc) {
 		this.key = key;
@@ -16,16 +19,19 @@ public class Setting {
 		this.description = desc;
 	}
 
-	public Setting setValue(Object val) {
-		return new Setting(this.key, val, this.description);
+	private Setting(){
 	}
 
-	public Setting setDescription(String desc) {
-		return new Setting(this.key, this.val, desc);
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public Setting setKey(String key) {
-		return new Setting(key, this.val, this.description);
+	public void setKey(String key) {
+		this.key = key;
+	}
+
+	public void setValue(Object val) {
+		this.val = val;
 	}
 
 	public String getKey() {

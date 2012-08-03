@@ -2,7 +2,7 @@ define([], function() {
 	require.config({
 		paths : {
 			/* Common libs */
-			'jquery'				: 'lib/jquery-1.7.1.min',
+			'jquery'				: 'lib/jquery-1.7.2.min',
 			'order'					: 'lib/order',
 			'underscore'			: 'lib/underscore-min',
 			'transitions'			: 'plugin/bootstrap-transition',
