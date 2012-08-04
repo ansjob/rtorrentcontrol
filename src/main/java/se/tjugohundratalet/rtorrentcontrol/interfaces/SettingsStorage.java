@@ -8,7 +8,7 @@ public interface SettingsStorage {
 
 	public List<Setting> getSettings();
 
-	public void delete(Setting key);
+	public void delete(String key);
 
 	public Setting getSetting(String key);
 

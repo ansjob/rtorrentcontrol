@@ -7,19 +7,19 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author ansjob
  */
 @XmlRootElement
-public class Setting {
+public class Setting<T> {
 
-	private String key;
-	private String description;
-	private Object val;
+	protected String key;
+	protected String description;
+	protected T val;
 
-	public Setting(String key, Object val, String desc) {
+	public Setting(String key, T val, String desc) {
 		this.key = key;
 		this.val = val;
 		this.description = desc;
 	}
 
-	private Setting(){
+	protected Setting(){
 	}
 
 	public void setDescription(String description) {
@@ -30,7 +30,7 @@ public class Setting {
 		this.key = key;
 	}
 
-	public void setValue(Object val) {
+	public void setValue(T val) {
 		this.val = val;
 	}
 
@@ -38,7 +38,7 @@ public class Setting {
 		return key;
 	}
 
-	public Object getVal() {
+	public T getVal() {
 		return val;
 	}
 

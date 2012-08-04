@@ -1,6 +1,8 @@
 package se.tjugohundratalet.rtorrentcontrol.logic;
 
 import java.sql.*;
+import java.util.Arrays;
+import java.util.Collections;
 import se.tjugohundratalet.rtorrentcontrol.exceptions.SettingsStorageException;
 import java.util.List;
 import org.slf4j.Logger;
@@ -8,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import se.tjugohundratalet.rtorrentcontrol.exceptions.SettingNotFoundException;
 import se.tjugohundratalet.rtorrentcontrol.interfaces.SettingsStorage;
 import se.tjugohundratalet.rtorrentcontrol.models.Setting;
-
 
 public class SQLiteSettingsStorage implements SettingsStorage {
 
@@ -30,21 +31,65 @@ public class SQLiteSettingsStorage implements SettingsStorage {
 
 	private static void initiateTables() throws SQLException {
 		synchronized (SQLiteSettingsStorage.class) {
+
 			Connection con = getDb();
-			Statement stmt = con.createStatement();
-			stmt.execute(CREATE_SETTINGS_TABLE_QUERY);
-			stmt.execute(CREATE_VALID_OPTS_TABLE_QUERY);
+			try {
+				Statement stmt = con.createStatement();
+				stmt.execute(CREATE_SETTINGS_TABLE_QUERY);
+				stmt.execute(CREATE_VALID_OPTS_TABLE_QUERY);
+			} finally {
+				con.close();
+			}
 		}
 	}
 
 	@Override
 	public List<Setting> getSettings() {
-		return null;
+		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
 	@Override
-	public void delete(Setting key) {
-		throw new UnsupportedOperationException("Not supported yet.");
+	public void delete(String key) {
+		String settingType = getSettingType(key);
+		deleteSetting(key, settingType);
+	}
+
+	private void deleteSetting(String key, String settingType) {
+		if (isPrimitive(settingType)) {
+			deletePrimitive(key);
+		} else if (settingType.equals(SettingTypes.SELECT)) {
+			deleteSelectSetting(key);
+		}
+	}
+
+	private boolean isPrimitive(String settingType) {
+		for (String type : SettingTypes.primitives) {
+			if (type.equals(settingType)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private void deletePrimitive(String key) {
+		Connection con = getDb();
+		try {
+			PreparedStatement stmt = con.prepareStatement(DELETE_PRIMITIVE_QUERY);
+			stmt.setString(1, key);
+			stmt.execute();
+		} catch (SQLException ex) {
+			log.error("Exception while deleting statement", ex);
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException ex) {
+				log.error("Exception while closing connection", ex);
+			}
+		}
+	}
+
+	private void deleteSelectSetting(String key) {
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -62,10 +107,10 @@ public class SQLiteSettingsStorage implements SettingsStorage {
 			if (res != null && res.next()) {
 				return res.getString("type");
 			} else {
-				throw new SettingsStorageException("Could not fetch setting type for key: " + key);
+				throw new SettingNotFoundException("Could not fetch setting type for key: " + key);
 			}
 		} catch (Exception ex) {
-			throw new SettingsStorageException("Could not fetch setting type for key: " + key, ex);
+			throw new SettingNotFoundException("Could not fetch setting type. This was caused by an exception", ex);
 		} finally {
 			try {
 				con.close();
@@ -88,11 +133,7 @@ public class SQLiteSettingsStorage implements SettingsStorage {
 	}
 
 	private Setting getStringSetting(String key) {
-		/*
-		 * Since we store the settings as Strings nothing needs to be done
-		 */
 		return getRawSetting(key);
-
 	}
 
 	private Setting getDoubleSetting(String key) {
@@ -195,13 +236,18 @@ public class SQLiteSettingsStorage implements SettingsStorage {
 			"SELECT type from settings where key = ?;";
 	private static final String GET_SETTING_QUERY =
 			"SELECT * from settings WHERE key = ?";
+	private static final String DELETE_PRIMITIVE_QUERY =
+			"DELETE FROM settings where key = ?";
 
 	public static class SettingTypes {
 
 		private SettingTypes() {
 		}
+		public static final String SELECT = "select";
 		public static final String STRING = "String";
 		public static final String DOUBLE = "Double";
 		public static final String INTEGER = "Integer";
+		public static final List<String> primitives = Collections.unmodifiableList(
+				Arrays.asList(STRING, DOUBLE, INTEGER));
 	}
 }
