@@ -14,3 +14,7 @@ You need to run the server in a Java Servlet container (like Tomcat, Jetty or Gl
 and then access it with your browser. The servlet will then make requests to rTorrent through
 the XMLRPC interface. This means that rTorrent has to be compiled with the ```--with-xmlrpc``` flag
 for this to work. Guides can be found on the rtorrent project page.
+
+## Future
+
+It is very possible to extend this to other bittorrent clients.
